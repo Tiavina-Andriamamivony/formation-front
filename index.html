@@ -3,1261 +3,1244 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Formation Frontend — Mihago × MA-ERI</title>
+<title>Formation Frontend — Mihago</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --bg: #0e0e0f;
-  --bg2: #161618;
-  --bg3: #1e1e21;
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.13);
-  --text: #e8e6e1;
-  --muted: #7a7875;
-  --accent1: #c8f060;
-  --accent2: #60c8f0;
-  --accent3: #f060c8;
-  --accent4: #f0a060;
-  --code-bg: #13131a;
-  --radius: 10px;
-  --radius-lg: 16px;
+  --bg: #f7f5f0;
+  --bg2: #edeae2;
+  --bg3: #e3e0d6;
+  --text: #1a1916;
+  --muted: #8a8680;
+  --border: rgba(26,25,22,0.1);
+  --border2: rgba(26,25,22,0.18);
+  --accent: #1a1916;
+  --green: #2d6a4f;
+  --green-bg: #eaf4ee;
+  --orange: #b5430a;
+  --orange-bg: #fdf0e8;
+  --blue: #1a4a7a;
+  --blue-bg: #eaf0f8;
+  --code-bg: #1a1916;
+  --code-text: #d4d0c8;
+  --r: 10px;
+  --r-lg: 16px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
   font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  line-height: 1.7;
-  min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.75;
 }
 
 /* ── NAV ── */
 nav {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(14,14,15,0.88);
-  backdrop-filter: blur(16px);
+  background: rgba(247,245,240,0.92);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; gap: 0;
-  padding: 0 32px;
+  display: flex; align-items: stretch; gap: 0;
   overflow-x: auto;
 }
 .nav-logo {
-  font-family: 'Fraunces', serif;
-  font-size: 15px;
-  color: var(--accent1);
-  white-space: nowrap;
-  padding: 16px 24px 16px 0;
+  font-family: 'Lora', serif;
+  font-size: 14px; font-style: italic;
+  color: var(--muted);
+  padding: 0 24px;
+  display: flex; align-items: center;
   border-right: 1px solid var(--border);
-  margin-right: 8px;
-  letter-spacing: -0.02em;
+  white-space: nowrap; flex-shrink: 0;
 }
 .nav-tab {
-  display: flex; align-items: center; gap: 8px;
-  padding: 16px 20px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 400;
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px 22px;
+  cursor: pointer; background: none;
+  border: none; border-bottom: 2px solid transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 400;
   color: var(--muted);
-  border-bottom: 2px solid transparent;
   transition: color .2s, border-color .2s;
   white-space: nowrap;
-  background: none; border-top: none; border-left: none; border-right: none;
-  font-family: inherit;
 }
 .nav-tab:hover { color: var(--text); }
-.nav-tab.active { color: var(--text); border-bottom-color: var(--accent1); }
+.nav-tab.active { color: var(--text); border-bottom-color: var(--text); }
 .nav-num {
-  width: 18px; height: 18px; border-radius: 50%;
+  width: 20px; height: 20px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 500; font-family: 'DM Mono', monospace;
-  background: var(--bg3); color: var(--muted);
-  transition: background .2s, color .2s;
+  font-size: 10px; font-family: 'DM Mono', monospace;
+  border: 1px solid var(--border2);
+  color: var(--muted); flex-shrink: 0;
+  transition: background .2s, color .2s, border-color .2s;
 }
-.nav-tab.active .nav-num { background: var(--accent1); color: #0e0e0f; }
+.nav-tab.active .nav-num {
+  background: var(--text); color: var(--bg); border-color: var(--text);
+}
 
 /* ── PAGES ── */
-.page { display: none; animation: fadeIn .3s ease; }
-.page.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.page { display: none; }
+.page.active { display: block; animation: fadeUp .35s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+
+/* ── LAYOUT ── */
+.hero {
+  max-width: 720px; margin: 0 auto;
+  padding: 72px 48px 56px;
+}
+.chapter-wrap {
+  max-width: 720px; margin: 0 auto;
+  padding: 0 48px 80px;
+}
 
 /* ── HERO ── */
-.hero {
-  padding: 64px 48px 48px;
-  border-bottom: 1px solid var(--border);
-  position: relative; overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute; top: -80px; right: -80px;
-  width: 400px; height: 400px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,240,96,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-eyebrow {
+.module-tag {
   font-family: 'DM Mono', monospace;
-  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 16px;
-  display: flex; align-items: center; gap: 8px;
-}
-.hero-eyebrow::before {
-  content: ''; display: inline-block;
-  width: 24px; height: 1px; background: var(--accent1);
-}
-.hero h1 {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(32px, 5vw, 52px);
-  font-weight: 300;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  margin-bottom: 16px;
-}
-.hero h1 em {
-  font-style: italic;
-  color: var(--accent1);
-}
-.hero-sub {
-  font-size: 15px;
-  color: var(--muted);
-  max-width: 580px;
-  line-height: 1.6;
-}
-.hero-meta {
-  display: flex; gap: 20px; flex-wrap: wrap;
-  margin-top: 28px;
-}
-.meta-pill {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 12px; color: var(--muted);
-  background: var(--bg3); border: 1px solid var(--border);
-  padding: 5px 12px; border-radius: 99px;
-}
-.meta-pill span { color: var(--text); font-weight: 500; }
-
-/* ── CONTENT ── */
-.content { padding: 48px; max-width: 900px; }
-.content > * + * { margin-top: 48px; }
-
-/* ── SECTION ── */
-.section { }
-.section-header {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 24px;
-}
-.section-number {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px; color: var(--muted);
-  width: 28px; height: 28px; border-radius: 6px;
-  border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
-}
-.section h2 {
-  font-family: 'Fraunces', serif;
-  font-size: 22px; font-weight: 300;
-  letter-spacing: -0.02em;
-}
-.section-body { padding-left: 40px; }
-.section-body p + p { margin-top: 12px; }
-.section-body p { color: #c5c2bb; line-height: 1.75; }
-
-/* ── CONCEPT BLOCK ── */
-.concept {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  margin-top: 20px;
-}
-.concept-header {
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--border);
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 20px;
   display: flex; align-items: center; gap: 10px;
 }
-.concept-label {
-  font-size: 11px; font-weight: 500; font-family: 'DM Mono', monospace;
-  letter-spacing: .06em; text-transform: uppercase;
-  padding: 3px 10px; border-radius: 99px;
+.module-tag::after { content:''; flex:1; height:1px; background:var(--border); }
+.hero h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(28px,4.5vw,42px);
+  font-weight: 400; line-height: 1.2;
+  letter-spacing: -0.02em; margin-bottom: 16px;
 }
-.concept-title { font-size: 14px; font-weight: 500; }
-.concept-body { padding: 20px; }
-.concept-body p { color: #b0aca4; font-size: 14px; line-height: 1.7; }
+.hero h1 em { font-style: italic; }
+.hero-intro {
+  font-size: 17px; color: #4a4742;
+  line-height: 1.75; max-width: 560px;
+}
+.hero-pills {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px;
+}
+.pill {
+  font-size: 12px; padding: 4px 12px; border-radius: 99px;
+  border: 1px solid var(--border2); color: var(--muted);
+  display: flex; align-items: center; gap: 5px;
+}
+
+/* ── CHAPTER ── */
+.chapter { margin-bottom: 64px; }
+.chapter-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px;
+}
+.chapter h2 {
+  font-family: 'Lora', serif;
+  font-size: 22px; font-weight: 400;
+  letter-spacing: -0.01em; margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.chapter p { color: #3a3733; margin-bottom: 16px; }
+.chapter p:last-child { margin-bottom: 0; }
+.chapter strong { color: var(--text); font-weight: 500; }
+
+/* ── ANALOGY ── */
+.analogy {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 24px 28px; margin: 24px 0;
+}
+.analogy-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px;
+}
+.analogy p { color: #3a3733; font-size: 15px; }
 
 /* ── CODE ── */
-pre {
+.code-block {
   background: var(--code-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 24px;
-  overflow-x: auto;
-  margin-top: 16px;
-  position: relative;
+  border-radius: var(--r);
+  margin: 20px 0; overflow: hidden;
 }
-.code-label {
-  position: absolute; top: 12px; right: 16px;
+.code-header {
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.code-filename {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: rgba(255,255,255,0.35);
+}
+.code-lang {
   font-family: 'DM Mono', monospace;
   font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(255,255,255,0.2);
+}
+pre {
+  padding: 20px 24px; overflow-x: auto; margin: 0;
+  background: transparent;
 }
 code, pre {
   font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  line-height: 1.7;
-  color: #c5c2bb;
+  font-size: 13px; line-height: 1.8;
+  color: var(--code-text);
 }
-.c-green { color: #a8d080; }
-.c-blue { color: #80b8d0; }
-.c-yellow { color: #d0c880; }
-.c-purple { color: #c080d0; }
-.c-orange { color: #d09060; }
-.c-red { color: #d08080; }
-.c-gray { color: #666; }
-.c-accent { color: var(--accent1); }
+.ck { color: #c792ea; }   /* keyword */
+.cs { color: #c3e88d; }   /* string */
+.cc { color: #546e7a; font-style:italic; }  /* comment */
+.cf { color: #82aaff; }   /* function */
+.cn { color: #ffcb6b; }   /* number/type */
+.cp { color: #89ddff; }   /* punctuation */
+.co { color: #f78c6c; }   /* operator */
+
+/* ── CALLOUTS ── */
+.callout {
+  border-radius: var(--r);
+  padding: 18px 22px; margin: 20px 0;
+  border-left: 3px solid;
+}
+.callout-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  margin-bottom: 8px; font-weight: 500;
+}
+.callout p { font-size: 14px; line-height: 1.7; }
+.callout.note { background: var(--blue-bg); border-color: #4a90d9; }
+.callout.note .callout-label { color: var(--blue); }
+.callout.note p { color: #2a4a6a; }
+.callout.tip { background: var(--green-bg); border-color: #48a96c; }
+.callout.tip .callout-label { color: var(--green); }
+.callout.tip p { color: #1d4a35; }
+.callout.warn { background: var(--orange-bg); border-color: #d4681a; }
+.callout.warn .callout-label { color: var(--orange); }
+.callout.warn p { color: #6a2c0a; }
 
 /* ── COMPARE ── */
 .compare {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 16px; margin-top: 20px;
+  gap: 12px; margin: 20px 0;
 }
-.compare-col {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); overflow: hidden;
-}
-.compare-col-header {
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border);
+.cmp-col { border-radius: var(--r); overflow: hidden; }
+.cmp-head {
+  padding: 10px 16px;
   font-size: 12px; font-weight: 500;
   display: flex; align-items: center; gap: 8px;
 }
-.compare-col-body { padding: 20px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.dot-red { background: #d08080; }
-.dot-green { background: var(--accent1); }
+.cmp-col.before .cmp-head { background:#f0ece4; color:var(--muted); }
+.cmp-col.after .cmp-head { background:#e0ede6; color:var(--green); }
+.cmp-col.before .code-block { margin:0; border-radius: 0 0 var(--r) var(--r); }
+.cmp-col.after .code-block { margin:0; border-radius: 0 0 var(--r) var(--r); }
+.dot { width:7px; height:7px; border-radius:50%; }
+.dot-muted { background:var(--muted); }
+.dot-green { background:var(--green); }
 
-/* ── INSIGHT BOX ── */
-.insight {
-  border-left: 3px solid var(--accent1);
-  padding: 16px 20px;
-  background: rgba(200,240,96,0.04);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  margin-top: 20px;
-}
-.insight-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--accent1); margin-bottom: 8px;
-}
-.insight p { font-size: 14px; color: #b5b2aa; line-height: 1.65; }
-
-/* ── WARNING BOX ── */
-.warning {
-  border-left: 3px solid var(--accent4);
-  padding: 16px 20px;
-  background: rgba(240,160,96,0.04);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  margin-top: 20px;
-}
-.warning-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--accent4); margin-bottom: 8px;
-}
-.warning p { font-size: 14px; color: #b5b2aa; line-height: 1.65; }
+/* ── STEPS ── */
+.steps { margin: 20px 0; display: flex; flex-direction: column; gap: 0; }
+.step { display: flex; gap: 20px; }
+.step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.step-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--text); color: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 12px; font-family: 'DM Mono', monospace; font-weight: 500; flex-shrink: 0; }
+.step-connector { flex: 1; width: 1px; background: var(--border); margin: 4px 0; }
+.step:last-child .step-connector { display: none; }
+.step-body { padding-bottom: 28px; flex: 1; }
+.step-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; padding-top: 4px; }
+.step-desc { font-size: 14px; color: #5a5753; line-height: 1.7; }
 
 /* ── EXERCISE ── */
 .exercise {
-  background: var(--bg3);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  margin-top: 20px;
+  background: var(--text); color: var(--bg);
+  border-radius: var(--r-lg); padding: 28px 32px; margin-top: 40px;
 }
-.exercise-header {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 16px;
+.exercise-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 8px;
 }
-.ex-badge {
-  font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: 99px;
-  font-family: 'DM Mono', monospace; letter-spacing: .06em; text-transform: uppercase;
+.exercise h3 {
+  font-family: 'Lora', serif;
+  font-size: 18px; font-weight: 400;
+  margin-bottom: 20px; line-height: 1.4;
 }
-.ex-title { font-size: 15px; font-weight: 500; }
-.exercise ol { padding-left: 20px; }
-.exercise ol li { font-size: 14px; color: #b0aca4; line-height: 1.7; margin-bottom: 6px; }
-.exercise ol li strong { color: var(--text); }
+.exercise-steps { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.exercise-steps li {
+  display: flex; gap: 14px; align-items: flex-start;
+  font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.8);
+}
+.ex-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-family: 'DM Mono', monospace;
+  color: rgba(255,255,255,0.5); flex-shrink: 0; margin-top: 1px;
+}
+.exercise-steps strong { color: #fff; }
+.ex-links { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 12px; flex-wrap: wrap; }
+.ex-link { font-size: 12px; color: rgba(255,255,255,0.45); text-decoration: none; font-family: 'DM Mono', monospace; transition: color .2s; }
+.ex-link:hover { color: rgba(255,255,255,0.8); }
 
-/* ── FLOW DIAGRAM ── */
-.flow {
-  display: flex; align-items: center; gap: 8px;
-  flex-wrap: wrap; margin-top: 20px; padding: 20px;
-  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg);
-}
-.flow-box {
-  background: var(--bg3); border: 1px solid var(--border2);
-  border-radius: var(--radius); padding: 10px 18px;
-  font-size: 13px; font-weight: 500; text-align: center;
-}
-.flow-arrow { color: var(--muted); font-size: 18px; flex-shrink: 0; }
-.flow-box.accent { border-color: var(--accent1); color: var(--accent1); }
-.flow-box.dim { opacity: .5; }
-
-/* ── RESOURCES ── */
-.resources {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px; margin-top: 20px;
-}
-.resource-card {
-  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 16px 18px; text-decoration: none; color: var(--text);
-  transition: border-color .2s, background .2s; display: block;
-}
-.resource-card:hover { border-color: var(--border2); background: var(--bg3); }
-.resource-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
-.resource-url { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
-
-/* ── CHECKLIST ── */
-.checklist { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
-.check-item {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 12px 16px;
-  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
-}
-.check-icon {
-  width: 18px; height: 18px; border-radius: 50%;
-  border: 1.5px solid var(--accent1); flex-shrink: 0;
-  margin-top: 2px; display: flex; align-items: center; justify-content: center;
-}
-.check-text { font-size: 13px; color: #b5b2aa; line-height: 1.5; }
-.check-text strong { color: var(--text); }
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 700px) {
-  .hero { padding: 40px 24px 32px; }
-  .content { padding: 32px 24px; }
-  .compare { grid-template-columns: 1fr; }
-  nav { padding: 0 16px; }
+@media(max-width:640px){
+  .hero,.chapter-wrap{padding-left:24px;padding-right:24px;}
+  .compare{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">Formation<br>Mihago</div>
-  <button class="nav-tab active" onclick="showPage(0)"><span class="nav-num">1</span> HTML/CSS → React TS</button>
-  <button class="nav-tab" onclick="showPage(1)"><span class="nav-num">2</span> React fonctionnel</button>
-  <button class="nav-tab" onclick="showPage(2)"><span class="nav-num">3</span> React vs Next.js</button>
-  <button class="nav-tab" onclick="showPage(3)"><span class="nav-num">4</span> Next.js features</button>
+  <div class="nav-logo">Mihago × MA-ERI</div>
+  <button class="nav-tab active" onclick="go(0)"><span class="nav-num">1</span>HTML → React</button>
+  <button class="nav-tab" onclick="go(1)"><span class="nav-num">2</span>React fonctionnel</button>
+  <button class="nav-tab" onclick="go(2)"><span class="nav-num">3</span>React vs Next.js</button>
+  <button class="nav-tab" onclick="go(3)"><span class="nav-num">4</span>Next.js en prod</button>
 </nav>
 
-<!-- ══════════════════════════════════════════════
-     PAGE 1 — HTML/CSS → React TypeScript
-══════════════════════════════════════════════ -->
-<div class="page active" id="page-0">
-  <div class="hero">
-    <div class="hero-eyebrow">Formation 1 / 4</div>
-    <h1>De HTML/CSS<br>vers <em>React TypeScript</em></h1>
-    <p class="hero-sub">Tu connais déjà HTML et CSS. Ce module t'explique ce qui change vraiment quand on passe à React et pourquoi TypeScript est ton meilleur allié dès le départ.</p>
-    <div class="hero-meta">
-      <div class="meta-pill">Durée : <span>~2h</span></div>
-      <div class="meta-pill">Niveau : <span>Débutant React</span></div>
-      <div class="meta-pill">Stack : <span>React 19 + TS</span></div>
+
+<!-- ═══════════════════════════════════════════
+     FORMATION 1 — HTML/CSS → React TypeScript
+═══════════════════════════════════════════ -->
+<div class="page active" id="p0">
+
+<div class="hero">
+  <div class="module-tag">Formation 1 sur 4</div>
+  <h1>De HTML/CSS<br>vers <em>React TypeScript</em></h1>
+  <p class="hero-intro">Tu connais déjà HTML et CSS — c'est une vraie base. Cette formation t'explique ce qui change quand on passe à React, et pourquoi. On avance doucement, concept par concept.</p>
+  <div class="hero-pills">
+    <span class="pill">⏱ 2 heures</span>
+    <span class="pill">📍 Débutant React</span>
+    <span class="pill">🛠 React 19 + TypeScript</span>
+  </div>
+</div>
+
+<div class="chapter-wrap">
+
+  <!-- CH 1 -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 1</div>
+    <h2>Le problème que React résout</h2>
+
+    <p>Imagine que tu dois afficher une liste de produits sur un site. En HTML pur, tu écris chaque <code>&lt;div&gt;</code> à la main dans ton fichier. Si tu as 50 produits, tu copies la même structure 50 fois. Et si le design change, tu modifies 50 endroits.</p>
+
+    <p>C'est là où React intervient. L'idée centrale est simple : <strong>tu décris une fois comment un produit doit s'afficher, et React s'occupe de le répéter</strong> autant de fois que nécessaire.</p>
+
+    <div class="analogy">
+      <div class="analogy-label">Analogie</div>
+      <p>Pense à un <strong>moule à gâteau</strong>. En HTML, tu sculptes chaque gâteau à la main. Avec React, tu crées le moule une fois — et tu peux faire autant de gâteaux que tu veux, tous identiques, juste avec des ingrédients différents.</p>
+    </div>
+
+    <p>Ce "moule", dans React, s'appelle un <strong>composant</strong>. C'est simplement une fonction JavaScript qui retourne du HTML (enfin, quelque chose qui y ressemble très fort — on verra ça juste après).</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- CH 2 -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 2</div>
+    <h2>Ton premier composant</h2>
+
+    <p>Un composant React ressemble à ça :</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">ServiceCard.tsx</span>
+        <span class="code-lang">tsx</span>
+      </div>
+<pre><code><span class="ck">function</span> <span class="cf">ServiceCard</span>() {
+  <span class="ck">return</span> (
+    &lt;div&gt;
+      &lt;h3&gt;Approvisionnement industriel&lt;/h3&gt;
+      &lt;p&gt;Roulements, courroies, joints...&lt;/p&gt;
+    &lt;/div&gt;
+  )
+}
+</code></pre>
+    </div>
+
+    <p>Tu remarques quelque chose d'étrange ? Il y a du <strong>HTML directement dans le JavaScript</strong>. C'est ce qu'on appelle le <strong>JSX</strong>. Ce n'est pas du vrai HTML — c'est une syntaxe spéciale que React transforme en JavaScript avant de l'exécuter.</p>
+
+    <div class="callout note">
+      <div class="callout-label">À retenir</div>
+      <p>Un composant React = une <strong>fonction JavaScript</strong> qui retourne du <strong>JSX</strong>. Le nom commence toujours par une majuscule. C'est tout.</p>
+    </div>
+
+    <p>Pour l'utiliser, tu l'écris comme une balise HTML :</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">App.tsx</span>
+        <span class="code-lang">tsx</span>
+      </div>
+<pre><code><span class="ck">function</span> <span class="cf">App</span>() {
+  <span class="ck">return</span> (
+    &lt;div&gt;
+      &lt;<span class="cf">ServiceCard</span> /&gt;
+      &lt;<span class="cf">ServiceCard</span> /&gt;
+      &lt;<span class="cf">ServiceCard</span> /&gt;
+    &lt;/div&gt;
+  )
+}
+</code></pre>
+    </div>
+
+    <p>Ça affiche trois fois la même carte. C'est déjà mieux qu'en HTML — mais le problème c'est qu'elles sont toutes identiques. On va régler ça.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- CH 3 -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 3</div>
+    <h2>Les props — personnaliser un composant</h2>
+
+    <p>Les <strong>props</strong> (abréviation de "properties") sont les paramètres qu'on passe à un composant. Comme les arguments d'une fonction — parce que c'est exactement ce que c'est.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-line">
+          <div class="step-dot">1</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">On définit ce que le composant accepte</div>
+          <div class="step-desc">Avec TypeScript, on écrit une <strong>interface</strong> — c'est la liste des infos que le composant a besoin pour s'afficher.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-line">
+          <div class="step-dot">2</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">On utilise ces infos dans le JSX</div>
+          <div class="step-desc">Entre <code>{ }</code>, on peut mettre n'importe quelle expression JavaScript — une variable, un calcul, une condition.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-line">
+          <div class="step-dot">3</div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">On passe les valeurs à l'utilisation</div>
+          <div class="step-desc">Comme des attributs HTML, mais avec des vraies valeurs JavaScript.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">ServiceCard.tsx</span>
+        <span class="code-lang">tsx</span>
+      </div>
+<pre><code><span class="cc">// Étape 1 — l'interface : ce que le composant attend</span>
+<span class="ck">interface</span> <span class="cn">ServiceCardProps</span> {
+  titre: <span class="cn">string</span>
+  description: <span class="cn">string</span>
+}
+
+<span class="cc">// Étape 2 — on utilise les props dans le JSX</span>
+<span class="ck">function</span> <span class="cf">ServiceCard</span>({ titre, description }: <span class="cn">ServiceCardProps</span>) {
+  <span class="ck">return</span> (
+    &lt;div&gt;
+      &lt;h3&gt;{titre}&lt;/h3&gt;
+      &lt;p&gt;{description}&lt;/p&gt;
+    &lt;/div&gt;
+  )
+}
+
+<span class="cc">// Étape 3 — on passe les valeurs</span>
+&lt;<span class="cf">ServiceCard</span>
+  titre=<span class="cs">"Approvisionnement industriel"</span>
+  description=<span class="cs">"Roulements, courroies, joints..."</span>
+/&gt;
+</code></pre>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-label">Pourquoi TypeScript dès maintenant ?</div>
+      <p>Si tu oublies de passer <code>titre</code>, TypeScript te le dit <em>avant même de lancer le projet</em>. C'est lui qui souligne en rouge dans ton éditeur. C'est ton filet de sécurité — apprends à l'aimer.</p>
     </div>
   </div>
 
-  <div class="content">
+  <hr class="divider"/>
 
-    <!-- 1. Le changement de paradigme -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">01</div>
-        <h2>Le vrai changement de paradigme</h2>
+  <!-- CH 4 -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 4</div>
+    <h2>JSX — les différences avec HTML</h2>
+
+    <p>JSX ressemble à HTML, mais il y a quelques règles à connaître. Tu vas les rencontrer tout de suite, autant les voir maintenant.</p>
+
+    <div class="compare">
+      <div class="cmp-col before">
+        <div class="cmp-head"><div class="dot dot-muted"></div>HTML</div>
+        <div class="code-block">
+<pre><code>class="ma-classe"
+
+for="mon-input"
+
+&lt;img src="..."&gt;
+
+style="color: red"
+
+&lt;!-- commentaire --&gt;
+</code></pre>
+        </div>
       </div>
-      <div class="section-body">
-        <p>En HTML/CSS, tu penses en <strong>fichiers</strong> et en <strong>pages</strong>. En React, tu penses en <strong>composants</strong> — des morceaux d'UI réutilisables, isolés, avec leur propre état.</p>
-        <p>La différence fondamentale : HTML est <em>déclaratif mais statique</em>. React est <em>déclaratif et dynamique</em> — l'UI est une fonction de la donnée. Si la donnée change, l'UI se met à jour automatiquement.</p>
+      <div class="cmp-col after">
+        <div class="cmp-head"><div class="dot dot-green"></div>JSX</div>
+        <div class="code-block">
+<pre><code><span class="cn">className</span>=<span class="cs">"ma-classe"</span>
 
-        <div class="compare">
-          <div class="compare-col">
-            <div class="compare-col-header"><div class="dot dot-red"></div>HTML classique</div>
-            <div class="compare-col-body">
-<pre style="margin:0;background:transparent;border:none;padding:0"><code><span class="c-gray">&lt;!-- Statique, tu dois JS pour tout --&gt;</span>
-<span class="c-blue">&lt;button</span> <span class="c-yellow">id</span>=<span class="c-green">"btn"</span><span class="c-blue">&gt;</span>Cliquer<span class="c-blue">&lt;/button&gt;</span>
-<span class="c-blue">&lt;p</span> <span class="c-yellow">id</span>=<span class="c-green">"count"</span><span class="c-blue">&gt;</span>0<span class="c-blue">&lt;/p&gt;</span>
+<span class="cn">htmlFor</span>=<span class="cs">"mon-input"</span>
 
-<span class="c-blue">&lt;script&gt;</span>
-  <span class="c-purple">let</span> n = <span class="c-orange">0</span>
-  document.<span class="c-accent">getElementById</span>(<span class="c-green">'btn'</span>)
-    .<span class="c-accent">addEventListener</span>(<span class="c-green">'click'</span>, () =&gt; {
-      n++
-      document.<span class="c-accent">getElementById</span>(<span class="c-green">'count'</span>)
-        .textContent = n
+&lt;img src=<span class="cs">"..."</span> /&gt;
+
+<span class="cn">style</span>={{ color: <span class="cs">'red'</span> }}
+
+{<span class="cc">/* commentaire */</span>}
+</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <p>Et une règle importante : <strong>un composant ne peut retourner qu'un seul élément racine</strong>. Si tu veux retourner plusieurs éléments côte à côte, entoure-les avec un Fragment — ça n'ajoute pas de div inutile dans le HTML final.</p>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">Fragment.tsx</span></div>
+<pre><code><span class="cc">// ❌ Erreur — deux éléments au même niveau</span>
+<span class="ck">return</span> (
+  &lt;h1&gt;Titre&lt;/h1&gt;
+  &lt;p&gt;Texte&lt;/p&gt;
+)
+
+<span class="cc">// ✅ Correct — enveloppé dans un Fragment &lt;&gt;</span>
+<span class="ck">return</span> (
+  &lt;&gt;
+    &lt;h1&gt;Titre&lt;/h1&gt;
+    &lt;p&gt;Texte&lt;/p&gt;
+  &lt;/&gt;
+)
+</code></pre>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- EXERCICE 1 -->
+  <div class="exercise">
+    <div class="exercise-tag">Exercice de la semaine</div>
+    <h3>Reproduire les cartes services de MA-ERI</h3>
+    <ul class="exercise-steps">
+      <li><div class="ex-num">1</div><div>Va sur <strong>ma-eri.vercel.app</strong> et regarde la section "Quatre métiers, une seule adresse". Observe la structure de chaque carte.</div></li>
+      <li><div class="ex-num">2</div><div>Crée un composant <strong>ServiceCard</strong> avec une interface TypeScript : titre, description, et numero (un chiffre).</div></li>
+      <li><div class="ex-num">3</div><div>Crée les <strong>4 cartes</strong> correspondant aux 4 pôles de MA-ERI. Passe les vraies données en props.</div></li>
+      <li><div class="ex-num">4</div><div>Pour le style, va sur <strong>ui.shadcn.com</strong> et installe le composant <strong>Card</strong>. C'est une bibliothèque de composants déjà stylisés — tu n'as pas à réinventer la roue.</div></li>
+    </ul>
+    <div class="ex-links">
+      <a class="ex-link" href="https://ma-eri.vercel.app" target="_blank">→ ma-eri.vercel.app</a>
+      <a class="ex-link" href="https://ui.shadcn.com/docs/components/radix/card" target="_blank">→ shadcn/ui Card</a>
+      <a class="ex-link" href="https://react.dev/learn/your-first-component" target="_blank">→ react.dev — premiers pas</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     FORMATION 2 — React fonctionnel : normes & concepts
+═══════════════════════════════════════════ -->
+<div class="page" id="p1">
+
+<div class="hero">
+  <div class="module-tag">Formation 2 sur 4</div>
+  <h1>React fonctionnel —<br><em>l'état et les hooks</em></h1>
+  <p class="hero-intro">Tu sais créer des composants. Maintenant on va leur donner de la mémoire — la capacité de se souvenir d'une information et de mettre à jour l'affichage quand elle change.</p>
+  <div class="hero-pills">
+    <span class="pill">⏱ 2 heures</span>
+    <span class="pill">📍 Intermédiaire</span>
+    <span class="pill">🛠 React 19 + TS</span>
+  </div>
+</div>
+
+<div class="chapter-wrap">
+
+  <!-- CH 1 -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 1</div>
+    <h2>Pourquoi une simple variable ne suffit pas</h2>
+
+    <p>Avant de voir <code>useState</code>, il faut comprendre <em>pourquoi</em> il existe. Essayons avec une variable normale :</p>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">Compteur.tsx</span></div>
+<pre><code><span class="cc">// ❌ Ça ne marchera PAS</span>
+<span class="ck">function</span> <span class="cf">Compteur</span>() {
+  <span class="ck">let</span> compte = <span class="cn">0</span>
+
+  <span class="ck">function</span> <span class="cf">incrementer</span>() {
+    compte = compte + <span class="cn">1</span>
+    <span class="cc">// La variable change... mais l'affichage ne bouge pas.</span>
+  }
+
+  <span class="ck">return</span> (
+    &lt;div&gt;
+      &lt;p&gt;{compte}&lt;/p&gt;
+      &lt;button onClick={incrementer}&gt;+1&lt;/button&gt;
+    &lt;/div&gt;
+  )
+}
+</code></pre>
+    </div>
+
+    <p>Le problème : React ne sait pas que <code>compte</code> a changé. Il n'a aucune raison de ré-afficher le composant. Pour qu'il le sache, il faut lui signaler le changement via un mécanisme prévu pour ça.</p>
+
+    <div class="analogy">
+      <div class="analogy-label">Analogie</div>
+      <p>Imagine que tu modifies un Google Doc hors connexion. Le document change sur ton écran, mais personne d'autre ne le voit. <code>useState</code>, c'est la synchronisation — ça dit à React "hé, quelque chose a changé, tu peux rafraîchir".</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- CH 2 -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 2</div>
+    <h2>useState — donner de la mémoire à un composant</h2>
+
+    <p><code>useState</code> est un <strong>hook</strong> — une fonction spéciale fournie par React. Elle retourne deux choses : la valeur actuelle, et une fonction pour la modifier.</p>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">Compteur.tsx</span></div>
+<pre><code><span class="ck">import</span> { useState } <span class="ck">from</span> <span class="cs">'react'</span>
+
+<span class="ck">function</span> <span class="cf">Compteur</span>() {
+  <span class="cc">// [valeur actuelle, fonction pour la changer]</span>
+  <span class="ck">const</span> [compte, setCompte] = <span class="cf">useState</span>(<span class="cn">0</span>)
+  <span class="cc">//                                    ↑ valeur de départ</span>
+
+  <span class="ck">return</span> (
+    &lt;div&gt;
+      &lt;p&gt;{compte}&lt;/p&gt;
+      &lt;button onClick={() =&gt; <span class="cf">setCompte</span>(compte + <span class="cn">1</span>)}&gt;+1&lt;/button&gt;
+    &lt;/div&gt;
+  )
+}
+</code></pre>
+    </div>
+
+    <p>Chaque fois que tu appelles <code>setCompte</code>, React ré-exécute la fonction <code>Compteur</code> avec la nouvelle valeur, et met à jour uniquement ce qui a changé dans le DOM. C'est rapide et automatique.</p>
+
+    <div class="callout note">
+      <div class="callout-label">Nomenclature</div>
+      <p>Par convention, si la variable s'appelle <code>compte</code>, la fonction s'appelle <code>setCompte</code>. Si c'est <code>isOpen</code>, c'est <code>setIsOpen</code>. Tu verras ce pattern partout.</p>
+    </div>
+
+    <p>TypeScript infère le type automatiquement depuis la valeur initiale. Mais parfois tu dois être explicite :</p>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">exemples.ts</span></div>
+<pre><code><span class="cc">// TypeScript comprend tout seul que c'est un number</span>
+<span class="ck">const</span> [compte, setCompte] = <span class="cf">useState</span>(<span class="cn">0</span>)
+
+<span class="cc">// TypeScript comprend tout seul que c'est un string</span>
+<span class="ck">const</span> [nom, setNom] = <span class="cf">useState</span>(<span class="cs">''</span>)
+
+<span class="cc">// Ici il faut être explicite — ça commence à null</span>
+<span class="cc">// mais ça deviendra un objet Service plus tard</span>
+<span class="ck">interface</span> <span class="cn">Service</span> {
+  id: <span class="cn">string</span>
+  titre: <span class="cn">string</span>
+}
+<span class="ck">const</span> [service, setService] = <span class="cf">useState</span>&lt;<span class="cn">Service</span> | <span class="cn">null</span>&gt;(<span class="ck">null</span>)
+</code></pre>
+    </div>
+
+    <div class="callout warn">
+      <div class="callout-label">Erreur classique à éviter</div>
+      <p>Ne modifie <strong>jamais</strong> un tableau ou un objet directement. <code>liste.push(item)</code> ne déclenchera pas de re-render. Il faut toujours créer une nouvelle valeur : <code>setListe([...liste, item])</code>.</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- CH 3 -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 3</div>
+    <h2>useEffect — réagir à des changements</h2>
+
+    <p><code>useEffect</code> sert à exécuter du code <strong>en réponse à quelque chose</strong> — le chargement du composant, ou le changement d'une valeur. C'est là où tu feras tes appels API, par exemple.</p>
+
+    <p>Il s'utilise avec un tableau de dépendances qui lui dit <em>quand</em> s'exécuter :</p>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">useEffect.tsx</span></div>
+<pre><code><span class="ck">import</span> { useEffect } <span class="ck">from</span> <span class="cs">'react'</span>
+
+<span class="cc">// Se lance une seule fois, au chargement du composant</span>
+<span class="cf">useEffect</span>(() =&gt; {
+  console.<span class="cf">log</span>(<span class="cs">'Le composant vient de s'afficher'</span>)
+}, []) <span class="cc">// ← tableau vide = "une seule fois"</span>
+
+
+<span class="cc">// Se relance à chaque fois que "recherche" change</span>
+<span class="cf">useEffect</span>(() =&gt; {
+  <span class="cf">fetchResultats</span>(recherche)
+}, [recherche]) <span class="cc">// ← relancé quand cette valeur change</span>
+</code></pre>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-label">Pour la suite</div>
+      <p>En Next.js (formation 3 et 4), tu feras très peu de <code>useEffect</code> pour charger des données. Next.js a une meilleure façon de faire ça côté serveur. Mais <code>useEffect</code> reste utile pour les animations, les timers, et les interactions avec le DOM.</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- CH 4 -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 4</div>
+    <h2>Les deux règles des hooks</h2>
+
+    <p>Les hooks ont deux règles absolues. Les ignorer crée des bugs impossibles à trouver.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-line">
+          <div class="step-dot">1</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Toujours en haut du composant</div>
+          <div class="step-desc">Jamais dans un <code>if</code>, un <code>for</code>, ou une fonction imbriquée. React doit voir les hooks dans le même ordre à chaque render — c'est comme ça qu'il sait lequel est lequel.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-line">
+          <div class="step-dot">2</div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Seulement dans un composant React</div>
+          <div class="step-desc">Pas dans une fonction utilitaire normale. Si tu veux partager de la logique avec des hooks, tu crées un <em>custom hook</em> — une fonction dont le nom commence par <code>use</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout note">
+      <div class="callout-label">Les custom hooks</div>
+      <p>Un custom hook c'est juste une fonction <code>useQuelqueChose()</code> qui utilise d'autres hooks. Ça permet de réutiliser de la logique entre plusieurs composants. On en écrira un dans l'exercice.</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="exercise">
+    <div class="exercise-tag">Exercice de la semaine</div>
+    <h3>Un mini catalogue avec filtres</h3>
+    <ul class="exercise-steps">
+      <li><div class="ex-num">1</div><div>Crée un tableau de <strong>6 produits fictifs MA-ERI</strong> avec un type TypeScript : id, nom, categorie, prix.</div></li>
+      <li><div class="ex-num">2</div><div>Affiche-les avec <code>.map()</code>. Chaque item doit avoir une prop <strong>key</strong> unique — React en a besoin pour optimiser les re-renders.</div></li>
+      <li><div class="ex-num">3</div><div>Ajoute un champ de <strong>recherche par nom</strong>. Utilise <code>useState</code> pour stocker le texte saisi, et <code>.filter()</code> pour n'afficher que les produits correspondants.</div></li>
+      <li><div class="ex-num">4</div><div>Crée un custom hook <strong>useFilter</strong> qui reçoit la liste et retourne la liste filtrée + la valeur de recherche + la fonction pour la modifier.</div></li>
+    </ul>
+    <div class="ex-links">
+      <a class="ex-link" href="https://ui.shadcn.com/docs/components/radix/input" target="_blank">→ shadcn/ui Input</a>
+      <a class="ex-link" href="https://ui.shadcn.com/docs/components/radix/badge" target="_blank">→ shadcn/ui Badge</a>
+      <a class="ex-link" href="https://react.dev/learn/state-a-components-memory" target="_blank">→ react.dev — state</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     FORMATION 3 — React vs Next.js
+═══════════════════════════════════════════ -->
+<div class="page" id="p2">
+
+<div class="hero">
+  <div class="module-tag">Formation 3 sur 4</div>
+  <h1>React vs Next.js —<br><em>pourquoi le saut ?</em></h1>
+  <p class="hero-intro">React est une librairie pour construire des interfaces. Next.js est un framework complet bâti sur React. On va comprendre ce que Next.js apporte, et surtout le concept qui change tout : les Server Components.</p>
+  <div class="hero-pills">
+    <span class="pill">⏱ 2 heures</span>
+    <span class="pill">📍 Intermédiaire</span>
+    <span class="pill">🛠 Next.js 15</span>
+  </div>
+</div>
+
+<div class="chapter-wrap">
+
+  <!-- CH 1 -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 1</div>
+    <h2>Ce que React seul ne fait pas</h2>
+
+    <p>Quand tu utilises React avec Vite (l'outil de base), tout ton code s'exécute <strong>dans le navigateur</strong>. Le serveur envoie juste une page HTML presque vide, puis JavaScript charge tout. C'est ce qu'on appelle une SPA — Single Page Application.</p>
+
+    <p>Ça pose deux problèmes concrets :</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-line">
+          <div class="step-dot">!</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Le SEO est cassé</div>
+          <div class="step-desc">Google reçoit une page vide, puis attend que JavaScript charge. Le contenu n'est pas indexé correctement. Pour un site comme MA-ERI qui doit être trouvé sur Google, c'est un vrai problème.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-line">
+          <div class="step-dot">!</div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Tout le JS est envoyé au client</div>
+          <div class="step-desc">Même le code qui lit une base de données, même les clés API secrètes. Il faut jongler avec des serveurs séparés pour tout ça.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="analogy">
+      <div class="analogy-label">Analogie</div>
+      <p>React seul c'est comme une cuisine qui livre ses repas <strong>en ingrédients bruts</strong> — le client assemble lui-même. Next.js c'est la cuisine qui envoie le <strong>plat prêt à manger</strong>. C'est plus rapide à consommer, et Google peut "goûter" directement.</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- CH 2 -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 2</div>
+    <h2>Le routing par fichiers</h2>
+
+    <p>En React classique, tu configures les routes manuellement avec une librairie tierce. En Next.js, <strong>la structure de tes fichiers définit tes routes</strong>. Pas de configuration.</p>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">Structure du projet</span></div>
+<pre><code>app/
+├── page.tsx          <span class="cc">→ la page d'accueil  /</span>
+├── layout.tsx        <span class="cc">→ navbar + footer (commun à toutes les pages)</span>
+│
+├── services/
+│   └── page.tsx      <span class="cc">→ /services</span>
+│
+├── produits/
+│   ├── page.tsx      <span class="cc">→ /produits</span>
+│   └── [id]/
+│       └── page.tsx  <span class="cc">→ /produits/roulement-6205</span>
+│                     <span class="cc">   /produits/tuyau-acier-50mm</span>
+│                     <span class="cc">   (le [id] est dynamique)</span>
+│
+└── admin/
+    └── page.tsx      <span class="cc">→ /admin</span>
+</code></pre>
+    </div>
+
+    <p>Tu crées un dossier, tu mets un fichier <code>page.tsx</code> dedans — la route existe. C'est tout.</p>
+
+    <div class="callout note">
+      <div class="callout-label">layout.tsx</div>
+      <p>Le fichier <code>layout.tsx</code> est un gabarit. Tout ce que tu y mets s'affiche sur toutes les pages en dessous. C'est là que tu mets ta navbar et ton footer — une seule fois pour tout le site.</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- CH 3 — Server vs Client -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 3</div>
+    <h2>Server Components — le concept central</h2>
+
+    <p>C'est le concept le plus important de Next.js. Il faut prendre le temps de le comprendre vraiment.</p>
+
+    <p>En Next.js, <strong>par défaut, tous tes composants s'exécutent sur le serveur</strong>. Pas dans le navigateur — sur le serveur. C'est ça un <em>Server Component</em>.</p>
+
+    <p>Ça veut dire que tu peux faire des choses impossibles dans un composant React classique :</p>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">app/produits/page.tsx</span></div>
+<pre><code><span class="cc">// Ce composant s'exécute sur le serveur.</span>
+<span class="cc">// Le navigateur reçoit du HTML déjà prêt.</span>
+
+<span class="ck">async function</span> <span class="cf">ProduitsPage</span>() {
+
+  <span class="cc">// On peut faire un fetch directement ici —</span>
+  <span class="cc">// pas besoin de useEffect, pas besoin d'état "loading"</span>
+  <span class="ck">const</span> produits = <span class="ck">await</span> <span class="cf">fetch</span>(<span class="cs">'https://api.ma-eri.com/produits'</span>)
+    .<span class="cf">then</span>(r =&gt; r.<span class="cf">json</span>())
+
+  <span class="ck">return</span> (
+    &lt;main&gt;
+      {produits.<span class="cf">map</span>((p) =&gt; (
+        &lt;<span class="cf">ProduitCard</span> key={p.id} {...p} /&gt;
+      ))}
+    &lt;/main&gt;
+  )
+}
+
+<span class="ck">export default</span> ProduitsPage
+</code></pre>
+    </div>
+
+    <p>Remarque : la fonction est <code>async</code>. Dans un composant React classique, c'est impossible. Ici, c'est naturel — parce que tout se passe sur le serveur, avant que le navigateur reçoive quoi que ce soit.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- CH 4 — use client -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 4</div>
+    <h2>Quand utiliser "use client" ?</h2>
+
+    <p>Certaines choses ne peuvent pas se faire côté serveur — les interactions, l'état, les événements. Pour ça, tu ajoutes <code>'use client'</code> en haut du fichier, et le composant redevient un composant React classique côté navigateur.</p>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">components/BoutonPanier.tsx</span></div>
+<pre><code><span class="cs">'use client'</span> <span class="cc">// ← cette ligne suffit</span>
+
+<span class="ck">import</span> { useState } <span class="ck">from</span> <span class="cs">'react'</span>
+
+<span class="ck">function</span> <span class="cf">BoutonPanier</span>({ produitId }: { produitId: <span class="cn">string</span> }) {
+  <span class="ck">const</span> [ajoute, setAjoute] = <span class="cf">useState</span>(<span class="ck">false</span>)
+
+  <span class="ck">return</span> (
+    &lt;button onClick={() =&gt; <span class="cf">setAjoute</span>(<span class="ck">true</span>)}&gt;
+      {ajoute ? <span class="cs">'Ajouté ✓'</span> : <span class="cs">'Ajouter au panier'</span>}
+    &lt;/button&gt;
+  )
+}
+</code></pre>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-label">La règle simple</div>
+      <p>Commence toujours sans <code>'use client'</code>. Ajoute-le uniquement quand TypeScript ou React te dit que tu ne peux pas utiliser <code>useState</code>, <code>useEffect</code>, ou un gestionnaire d'événement (<code>onClick</code>, <code>onChange</code>...) sans ça.</p>
+    </div>
+
+    <div class="compare">
+      <div class="cmp-col before">
+        <div class="cmp-head"><div class="dot dot-muted"></div>Server Component</div>
+        <div class="code-block">
+<pre><code><span class="cc">✓ async/await</span>
+<span class="cc">✓ fetch de données</span>
+<span class="cc">✓ accès fichiers</span>
+<span class="cc">✓ SEO parfait</span>
+<span class="cc">✗ pas de useState</span>
+<span class="cc">✗ pas de onClick</span>
+</code></pre>
+        </div>
+      </div>
+      <div class="cmp-col after">
+        <div class="cmp-head"><div class="dot dot-green"></div>Client Component</div>
+        <div class="code-block">
+<pre><code><span class="cc">✓ useState</span>
+<span class="cc">✓ useEffect</span>
+<span class="cc">✓ onClick, onChange</span>
+<span class="cc">✓ animations</span>
+<span class="cc">✗ pas de async direct</span>
+<span class="cc">✗ JS envoyé au client</span>
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="exercise">
+    <div class="exercise-tag">Exercice de la semaine</div>
+    <h3>Migrer le catalogue vers Next.js</h3>
+    <ul class="exercise-steps">
+      <li><div class="ex-num">1</div><div>Lance <code>npx create-next-app@latest ma-eri-shop --typescript --tailwind --app</code> dans ton terminal.</div></li>
+      <li><div class="ex-num">2</div><div>Crée un fichier <code>data/produits.ts</code> avec tes 6 produits. C'est un tableau TypeScript typé — pas encore une vraie API.</div></li>
+      <li><div class="ex-num">3</div><div>Crée la page <strong>/produits</strong> en tant que Server Component. Elle lit les données depuis ton fichier et affiche les cartes.</div></li>
+      <li><div class="ex-num">4</div><div>Le bouton "Ajouter au panier" doit être dans un fichier séparé avec <code>'use client'</code>. Observe dans l'onglet Network que la page arrive en HTML complet.</div></li>
+    </ul>
+    <div class="ex-links">
+      <a class="ex-link" href="https://nextjs.org/docs/app/building-your-application/routing" target="_blank">→ Next.js — routing</a>
+      <a class="ex-link" href="https://ui.shadcn.com/docs/components/radix/card" target="_blank">→ shadcn/ui Card</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     FORMATION 4 — Next.js en production
+═══════════════════════════════════════════ -->
+<div class="page" id="p3">
+
+<div class="hero">
+  <div class="module-tag">Formation 4 sur 4</div>
+  <h1>Next.js —<br><em>les features qui comptent</em></h1>
+  <p class="hero-intro">On va voir les outils qui font tourner un vrai projet : comment envoyer des données sans écrire d'API, comment protéger des pages, et comment Next.js optimise les images et le SEO automatiquement.</p>
+  <div class="hero-pills">
+    <span class="pill">⏱ 2 heures</span>
+    <span class="pill">📍 Avancé</span>
+    <span class="pill">🛠 Next.js 15 + Vercel</span>
+  </div>
+</div>
+
+<div class="chapter-wrap">
+
+  <!-- CH 1 — Server Actions -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 1</div>
+    <h2>Server Actions — envoyer des données sans API</h2>
+
+    <p>Jusqu'ici on a vu comment <em>afficher</em> des données. Mais comment on <em>envoie</em> des données ? En React classique, tu créerais une API, ferais un <code>fetch POST</code>, gèrerais les erreurs... Beaucoup de code pour quelque chose de simple.</p>
+
+    <p>Next.js 15 a une solution : les <strong>Server Actions</strong>. C'est une fonction qui s'exécute côté serveur, mais que tu appelles directement depuis ton composant — comme si c'était une fonction locale.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-line">
+          <div class="step-dot">1</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Tu crées la fonction serveur</div>
+          <div class="step-desc">Elle commence par <code>'use server'</code> — c'est la directive qui dit à Next.js "ce code ne va jamais dans le navigateur".</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-line">
+          <div class="step-dot">2</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Tu l'importes dans ton composant</div>
+          <div class="step-desc">Comme n'importe quelle fonction. Next.js gère tout le transport automatiquement.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-line">
+          <div class="step-dot">3</div>
+        </div>
+        <div class="step-body">
+          <div class="step-title">Tu l'appelles comme une fonction normale</div>
+          <div class="step-desc">Mais en coulisses, Next.js envoie une requête au serveur, exécute le code, et retourne le résultat.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">actions/commande.ts</span></div>
+<pre><code><span class="cs">'use server'</span>
+
+<span class="ck">export async function</span> <span class="cf">envoyerCommande</span>(data: {
+  client: <span class="cn">string</span>
+  email: <span class="cn">string</span>
+}) {
+  <span class="cc">// Ce code s'exécute sur le serveur.</span>
+  <span class="cc">// On pourrait lire une base de données, envoyer un email...</span>
+  <span class="cc">// Le navigateur ne verra jamais ce code.</span>
+
+  <span class="ck">if</span> (!data.email.<span class="cf">includes</span>(<span class="cs">'@'</span>)) {
+    <span class="ck">return</span> { ok: <span class="ck">false</span>, erreur: <span class="cs">'Email invalide'</span> }
+  }
+
+  <span class="cc">// ... traitement ...</span>
+
+  <span class="ck">return</span> { ok: <span class="ck">true</span> }
+}
+</code></pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">components/FormulaireCommande.tsx</span></div>
+<pre><code><span class="cs">'use client'</span>
+
+<span class="ck">import</span> { useState } <span class="ck">from</span> <span class="cs">'react'</span>
+<span class="ck">import</span> { envoyerCommande } <span class="ck">from</span> <span class="cs">'@/actions/commande'</span>
+
+<span class="ck">function</span> <span class="cf">FormulaireCommande</span>() {
+  <span class="ck">const</span> [statut, setStatut] = <span class="cf">useState</span>&lt;<span class="cs">'idle'</span> | <span class="cs">'loading'</span> | <span class="cs">'ok'</span>&gt;(<span class="cs">'idle'</span>)
+
+  <span class="ck">async function</span> <span class="cf">handleSubmit</span>() {
+    <span class="cf">setStatut</span>(<span class="cs">'loading'</span>)
+    <span class="ck">const</span> resultat = <span class="ck">await</span> <span class="cf">envoyerCommande</span>({
+      client: <span class="cs">'Jean Rakoto'</span>,
+      email: <span class="cs">'jean@example.mg'</span>
     })
-<span class="c-blue">&lt;/script&gt;</span></code></pre>
-            </div>
-          </div>
-          <div class="compare-col">
-            <div class="compare-col-header"><div class="dot dot-green"></div>React + TypeScript</div>
-            <div class="compare-col-body">
-<pre style="margin:0;background:transparent;border:none;padding:0"><code><span class="c-gray">// L'UI suit la donnée automatiquement</span>
-<span class="c-purple">import</span> { useState } <span class="c-purple">from</span> <span class="c-green">'react'</span>
-
-<span class="c-purple">export function</span> <span class="c-accent">Counter</span>() {
-  <span class="c-purple">const</span> [n, setN] = <span class="c-accent">useState</span>(<span class="c-orange">0</span>)
-
-  <span class="c-purple">return</span> (
-    <span class="c-blue">&lt;div&gt;</span>
-      <span class="c-blue">&lt;button</span> <span class="c-yellow">onClick</span>=<span class="c-blue">{</span>() =&gt; <span class="c-accent">setN</span>(n + <span class="c-orange">1</span>)<span class="c-blue">}</span><span class="c-blue">&gt;</span>
-        Cliquer
-      <span class="c-blue">&lt;/button&gt;</span>
-      <span class="c-blue">&lt;p&gt;{</span>n<span class="c-blue">}&lt;/p&gt;</span>
-    <span class="c-blue">&lt;/div&gt;</span>
-  )
-}</code></pre>
-            </div>
-          </div>
-        </div>
-
-        <div class="insight">
-          <div class="insight-label">À retenir</div>
-          <p>Tu n'écris plus <code>document.getElementById</code> pour modifier le DOM. Tu décris <em>à quoi l'UI doit ressembler</em> selon la donnée, et React se charge du reste.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. JSX = HTML dans du JS -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">02</div>
-        <h2>JSX — pas du HTML, du JavaScript</h2>
-      </div>
-      <div class="section-body">
-        <p>JSX ressemble à du HTML mais c'est du JavaScript transformé par le compilateur. Il y a quelques règles à connaître dès le départ.</p>
-
-        <div class="concept">
-          <div class="concept-header">
-            <span class="concept-label" style="background:rgba(200,240,96,0.1);color:var(--accent1)">Différences clés</span>
-            <span class="concept-title">HTML → JSX : ce qui change</span>
-          </div>
-          <div class="concept-body">
-<pre><code><span class="c-gray">// HTML                     JSX</span>
-class="..."          →   <span class="c-yellow">className</span>=<span class="c-green">"..."</span>
-for="..."            →   <span class="c-yellow">htmlFor</span>=<span class="c-green">"..."</span>
-<span class="c-blue">&lt;br&gt;</span>                 →   <span class="c-blue">&lt;br /&gt;</span>    <span class="c-gray">(self-closing obligatoire)</span>
-<span class="c-blue">&lt;img src="..."&gt;</span>      →   <span class="c-blue">&lt;img</span> <span class="c-yellow">src</span>=<span class="c-green">"..."</span> <span class="c-blue">/&gt;</span>
-style="color:red"    →   <span class="c-yellow">style</span>=<span class="c-blue">{{</span> <span class="c-yellow">color</span>: <span class="c-green">'red'</span> <span class="c-blue">}}</span>
-
-<span class="c-gray">// Expressions JS avec { }</span>
-<span class="c-blue">&lt;h1&gt;{</span>user.name<span class="c-blue">}&lt;/h1&gt;</span>
-<span class="c-blue">&lt;div</span> <span class="c-yellow">className</span>=<span class="c-blue">{</span>isActive ? <span class="c-green">'active'</span> : <span class="c-green">'idle'</span><span class="c-blue">}&gt;</span>
-
-<span class="c-gray">// Un seul élément racine</span>
-<span class="c-purple">return</span> (
-  <span class="c-blue">&lt;&gt;</span>        <span class="c-gray">{/* Fragment — pas de div inutile */}</span>
-    <span class="c-blue">&lt;h1&gt;</span>...<span class="c-blue">&lt;/h1&gt;</span>
-    <span class="c-blue">&lt;p&gt;</span>...<span class="c-blue">&lt;/p&gt;</span>
-  <span class="c-blue">&lt;/&gt;</span>
-)</code></pre>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. Composants et props typées -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">03</div>
-        <h2>Composants et props typées</h2>
-      </div>
-      <div class="section-body">
-        <p>Un composant React est une fonction qui retourne du JSX. TypeScript te permet de définir exactement ce que ce composant accepte — plus d'erreurs "undefined is not a function".</p>
-
-        <div class="concept">
-          <div class="concept-header">
-            <span class="concept-label" style="background:rgba(96,200,240,0.1);color:var(--accent2)">Exemple concret</span>
-            <span class="concept-title">Carte service MA-ERI typée</span>
-          </div>
-          <div class="concept-body">
-<pre><code><span class="c-gray">// ① On définit la forme des données (interface)</span>
-<span class="c-purple">interface</span> <span class="c-accent">ServiceCardProps</span> {
-  titre: <span class="c-yellow">string</span>
-  description: <span class="c-yellow">string</span>
-  numero: <span class="c-yellow">number</span>
-  lien?: <span class="c-yellow">string</span>  <span class="c-gray">// ? = optionnel</span>
-}
-
-<span class="c-gray">// ② Le composant reçoit ces props typées</span>
-<span class="c-purple">export function</span> <span class="c-accent">ServiceCard</span>({ titre, description, numero, lien }: <span class="c-accent">ServiceCardProps</span>) {
-  <span class="c-purple">return</span> (
-    <span class="c-blue">&lt;div</span> <span class="c-yellow">className</span>=<span class="c-green">"service-card"</span><span class="c-blue">&gt;</span>
-      <span class="c-blue">&lt;span</span> <span class="c-yellow">className</span>=<span class="c-green">"num"</span><span class="c-blue">&gt;</span>{<span class="c-yellow">numero</span>.toString().<span class="c-accent">padStart</span>(<span class="c-orange">2</span>, <span class="c-green">'0'</span>)}<span class="c-blue">&lt;/span&gt;</span>
-      <span class="c-blue">&lt;h3&gt;{</span>titre<span class="c-blue">}&lt;/h3&gt;</span>
-      <span class="c-blue">&lt;p&gt;{</span>description<span class="c-blue">}&lt;/p&gt;</span>
-      {lien &amp;&amp; <span class="c-blue">&lt;a</span> <span class="c-yellow">href</span>=<span class="c-blue">{</span>lien<span class="c-blue">}&gt;</span>Explorer →<span class="c-blue">&lt;/a&gt;</span>}
-    <span class="c-blue">&lt;/div&gt;</span>
-  )
-}
-
-<span class="c-gray">// ③ Utilisation — TypeScript te prévient si tu oublies un prop requis</span>
-<span class="c-blue">&lt;ServiceCard</span>
-  <span class="c-yellow">numero</span>=<span class="c-blue">{</span><span class="c-orange">1</span><span class="c-blue">}</span>
-  <span class="c-yellow">titre</span>=<span class="c-green">"Approvisionnement industriel"</span>
-  <span class="c-yellow">description</span>=<span class="c-green">"Roulements, courroies, joints..."</span>
-<span class="c-blue">/&gt;</span></code></pre>
-          </div>
-        </div>
-
-        <div class="insight">
-          <div class="insight-label">Pourquoi TypeScript dès maintenant ?</div>
-          <p>L'interface <code>ServiceCardProps</code> est un contrat. Si tu utilises <code>&lt;ServiceCard /&gt;</code> sans <code>titre</code>, TypeScript te crie dessus <em>avant même de lancer le projet</em>. C'est 80% des bugs évités à la source.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. Exercice -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">04</div>
-        <h2>Exercice pratique</h2>
-      </div>
-      <div class="section-body">
-        <div class="exercise">
-          <div class="exercise-header">
-            <span class="ex-badge" style="background:rgba(200,240,96,0.1);color:var(--accent1)">Exercice</span>
-            <span class="ex-title">Reproduire la section services de MA-ERI</span>
-          </div>
-          <ol>
-            <li>Crée un composant <strong>ServiceCard</strong> avec une interface TypeScript complète (titre, description, numero, icone optionnel, lien optionnel)</li>
-            <li>Crée un tableau <strong>SERVICES</strong> typé <code>ServiceCardProps[]</code> avec les 4 pôles de MA-ERI</li>
-            <li>Affiche les 4 cartes avec <strong>.map()</strong> — chaque item doit avoir une <code>key</code> unique</li>
-            <li>Ajoute un état <strong>actif</strong> — cliquer sur une carte la met en surbrillance</li>
-            <li>Ressource design : va chercher le composant <strong>Card</strong> sur shadcn/ui</li>
-          </ol>
-        </div>
-
-        <div class="resources">
-          <a class="resource-card" href="https://ui.shadcn.com/docs/components/radix/card" target="_blank">
-            <div class="resource-title">shadcn/ui — Card</div>
-            <div class="resource-url">ui.shadcn.com</div>
-          </a>
-          <a class="resource-card" href="https://21st.dev/community/components" target="_blank">
-            <div class="resource-title">21st.dev — Components</div>
-            <div class="resource-url">21st.dev</div>
-          </a>
-          <a class="resource-card" href="https://react.dev/learn/your-first-component" target="_blank">
-            <div class="resource-title">React docs — First component</div>
-            <div class="resource-url">react.dev</div>
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     PAGE 2 — React fonctionnel : normes & concepts
-══════════════════════════════════════════════ -->
-<div class="page" id="page-1">
-  <div class="hero">
-    <div class="hero-eyebrow">Formation 2 / 4</div>
-    <h1>React fonctionnel —<br><em>normes & concepts</em></h1>
-    <p class="hero-sub">useState, useEffect, les règles des hooks, la composition de composants, et les patterns qu'on utilise vraiment en prod.</p>
-    <div class="hero-meta">
-      <div class="meta-pill">Durée : <span>~2h</span></div>
-      <div class="meta-pill">Niveau : <span>Intermédiaire</span></div>
-      <div class="meta-pill">Stack : <span>React 19 + TS</span></div>
-    </div>
-  </div>
-
-  <div class="content">
-
-    <!-- useState -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">01</div>
-        <h2>useState — gérer l'état local</h2>
-      </div>
-      <div class="section-body">
-        <p>L'état, c'est une donnée qui <strong>appartient à un composant</strong> et qui, quand elle change, déclenche un re-render de l'UI. TypeScript te force à être précis sur le type dès l'initialisation.</p>
-
-        <div class="concept">
-          <div class="concept-header">
-            <span class="concept-label" style="background:rgba(200,240,96,0.1);color:var(--accent1)">Pattern</span>
-            <span class="concept-title">Types courants avec useState</span>
-          </div>
-          <div class="concept-body">
-<pre><code><span class="c-gray">// Primitifs — TS infère le type automatiquement</span>
-<span class="c-purple">const</span> [count, setCount] = <span class="c-accent">useState</span>(<span class="c-orange">0</span>)          <span class="c-gray">// number</span>
-<span class="c-purple">const</span> [nom, setNom] = <span class="c-accent">useState</span>(<span class="c-green">''</span>)            <span class="c-gray">// string</span>
-<span class="c-purple">const</span> [open, setOpen] = <span class="c-accent">useState</span>(<span class="c-purple">false</span>)      <span class="c-gray">// boolean</span>
-
-<span class="c-gray">// Objet — déclare l'interface</span>
-<span class="c-purple">interface</span> <span class="c-accent">Produit</span> {
-  id: <span class="c-yellow">string</span>
-  nom: <span class="c-yellow">string</span>
-  prix: <span class="c-yellow">number</span>
-}
-<span class="c-purple">const</span> [produit, setProduit] = <span class="c-accent">useState</span>&lt;<span class="c-accent">Produit</span> | <span class="c-yellow">null</span>&gt;(<span class="c-purple">null</span>)
-
-<span class="c-gray">// Tableau typé</span>
-<span class="c-purple">const</span> [panier, setPanier] = <span class="c-accent">useState</span>&lt;<span class="c-accent">Produit</span>[]&gt;([])
-
-<span class="c-gray">// Mise à jour fonctionnelle (important !) — toujours utiliser</span>
-<span class="c-gray">// la forme fonctionnelle quand le nouveau state dépend de l'ancien</span>
-<span class="c-accent">setCount</span>(prev =&gt; prev + <span class="c-orange">1</span>)  <span class="c-gray">// ✅ safe</span>
-<span class="c-accent">setCount</span>(count + <span class="c-orange">1</span>)          <span class="c-gray">// ⚠️  peut poser problème en async</span></code></pre>
-          </div>
-        </div>
-
-        <div class="warning">
-          <div class="warning-label">Erreur classique</div>
-          <p>Ne jamais <strong>muter</strong> directement le state. <code>panier.push(item)</code> ne déclenche pas de re-render. Il faut toujours créer un nouveau tableau : <code>setPanier(prev =&gt; [...prev, item])</code>.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- useEffect -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">02</div>
-        <h2>useEffect — effets de bord</h2>
-      </div>
-      <div class="section-body">
-        <p>useEffect sert à synchroniser un composant avec <strong>quelque chose d'extérieur</strong> : une API, le localStorage, un timer, un event listener. Ce n'est PAS fait pour la logique métier.</p>
-
-        <div class="concept">
-          <div class="concept-header">
-            <span class="concept-label" style="background:rgba(240,96,200,0.1);color:var(--accent3)">Patterns</span>
-            <span class="concept-title">Les 3 formes de useEffect</span>
-          </div>
-          <div class="concept-body">
-<pre><code><span class="c-gray">// 1. Exécuté à chaque render — rarement utile</span>
-<span class="c-accent">useEffect</span>(() =&gt; { console.<span class="c-accent">log</span>(<span class="c-green">'render'</span>) })
-
-<span class="c-gray">// 2. Exécuté une seule fois au montage (équivalent componentDidMount)</span>
-<span class="c-accent">useEffect</span>(() =&gt; {
-  <span class="c-accent">fetchServices</span>()
-}, [])  <span class="c-gray">// ← tableau de dépendances vide</span>
-
-<span class="c-gray">// 3. Exécuté quand une valeur change</span>
-<span class="c-accent">useEffect</span>(() =&gt; {
-  <span class="c-purple">if</span> (!userId) <span class="c-purple">return</span>
-  <span class="c-accent">fetchUserData</span>(userId)
-}, [userId])  <span class="c-gray">// ← relancé à chaque changement de userId</span>
-
-<span class="c-gray">// Cleanup — important pour les subscriptions, timers</span>
-<span class="c-accent">useEffect</span>(() =&gt; {
-  <span class="c-purple">const</span> timer = <span class="c-accent">setInterval</span>(() =&gt; ..., <span class="c-orange">1000</span>)
-  <span class="c-purple">return</span> () =&gt; <span class="c-accent">clearInterval</span>(timer)  <span class="c-gray">// nettoyage au démontage</span>
-}, [])</code></pre>
-          </div>
-        </div>
-
-        <div class="insight">
-          <div class="insight-label">React 19 — note importante</div>
-          <p>Avec React 19, pour du data fetching simple, on préfère les <strong>Server Components</strong> (vu en formation 3) plutôt que <code>useEffect</code>. useEffect reste utile pour les interactions DOM, les timers, et les event listeners.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Règles des hooks -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">03</div>
-        <h2>Les règles des hooks</h2>
-      </div>
-      <div class="section-body">
-        <p>Les hooks ont deux règles absolues. Les violer crée des bugs impossibles à debugger.</p>
-
-        <div class="checklist">
-          <div class="check-item">
-            <div class="check-icon">
-              <svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke="#c8f060" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div class="check-text"><strong>Toujours au top level</strong> — jamais dans un <code>if</code>, un <code>for</code>, ou une fonction imbriquée. React compte les hooks dans l'ordre à chaque render.</div>
-          </div>
-          <div class="check-item">
-            <div class="check-icon">
-              <svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke="#c8f060" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div class="check-text"><strong>Seulement dans des composants React ou des custom hooks</strong> — jamais dans une fonction utilitaire normale.</div>
-          </div>
-          <div class="check-item">
-            <div class="check-icon">
-              <svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke="#c8f060" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div class="check-text"><strong>Les custom hooks commencent par "use"</strong> — <code>useCart</code>, <code>useServices</code>. C'est une convention que ESLint vérifie automatiquement.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Custom hooks -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">04</div>
-        <h2>Custom hooks — extraire la logique</h2>
-      </div>
-      <div class="section-body">
-        <p>Un custom hook, c'est une fonction qui utilise d'autres hooks. L'objectif est de séparer la <strong>logique</strong> de l'<strong>affichage</strong>.</p>
-
-        <div class="concept">
-          <div class="concept-header">
-            <span class="concept-label" style="background:rgba(240,160,96,0.1);color:var(--accent4)">Exemple</span>
-            <span class="concept-title">useCart — logique du panier e-commerce MA-ERI</span>
-          </div>
-          <div class="concept-body">
-<pre><code><span class="c-gray">// hooks/useCart.ts</span>
-<span class="c-purple">interface</span> <span class="c-accent">Article</span> {
-  id: <span class="c-yellow">string</span>
-  nom: <span class="c-yellow">string</span>
-  prix: <span class="c-yellow">number</span>
-  quantite: <span class="c-yellow">number</span>
-}
-
-<span class="c-purple">export function</span> <span class="c-accent">useCart</span>() {
-  <span class="c-purple">const</span> [articles, setArticles] = <span class="c-accent">useState</span>&lt;<span class="c-accent">Article</span>[]&gt;([])
-
-  <span class="c-purple">const</span> ajouter = (article: <span class="c-accent">Omit</span>&lt;<span class="c-accent">Article</span>, <span class="c-green">'quantite'</span>&gt;) =&gt; {
-    <span class="c-accent">setArticles</span>(prev =&gt; {
-      <span class="c-purple">const</span> existant = prev.<span class="c-accent">find</span>(a =&gt; a.id === article.id)
-      <span class="c-purple">if</span> (existant) {
-        <span class="c-purple">return</span> prev.<span class="c-accent">map</span>(a =&gt; a.id === article.id
-          ? { ...a, quantite: a.quantite + <span class="c-orange">1</span> } : a)
-      }
-      <span class="c-purple">return</span> [...prev, { ...article, quantite: <span class="c-orange">1</span> }]
-    })
+    <span class="ck">if</span> (resultat.ok) <span class="cf">setStatut</span>(<span class="cs">'ok'</span>)
   }
 
-  <span class="c-purple">const</span> total = articles.<span class="c-accent">reduce</span>(
-    (acc, a) =&gt; acc + a.prix * a.quantite, <span class="c-orange">0</span>
-  )
-
-  <span class="c-purple">return</span> { articles, ajouter, total }
-}
-
-<span class="c-gray">// Dans le composant — clean, pas de logique</span>
-<span class="c-purple">export function</span> <span class="c-accent">PanierPage</span>() {
-  <span class="c-purple">const</span> { articles, ajouter, total } = <span class="c-accent">useCart</span>()
-  <span class="c-gray">// ...</span>
-}</code></pre>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Exercice -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">05</div>
-        <h2>Exercice pratique</h2>
-      </div>
-      <div class="section-body">
-        <div class="exercise">
-          <div class="exercise-header">
-            <span class="ex-badge" style="background:rgba(240,96,200,0.1);color:var(--accent3)">Exercice</span>
-            <span class="ex-title">Mini catalogue e-commerce MA-ERI</span>
-          </div>
-          <ol>
-            <li>Crée une interface <strong>Article</strong> typée (id, nom, categorie, prix, stock, image?)</li>
-            <li>Crée un fichier <strong>data/articles.ts</strong> avec 6 articles fictifs MA-ERI (tuyaux, roulements, équipements...)</li>
-            <li>Crée le custom hook <strong>useCart</strong> avec ajouter, retirer, vider, total</li>
-            <li>Crée un composant <strong>ArticleCard</strong> avec un bouton "Ajouter au panier" qui appelle <code>useCart</code></li>
-            <li>Affiche le nombre d'articles dans un badge en haut — il se met à jour automatiquement</li>
-            <li>Ressource design : composant <strong>Badge + Button</strong> shadcn/ui</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     PAGE 3 — React vs Next.js
-══════════════════════════════════════════════ -->
-<div class="page" id="page-2">
-  <div class="hero">
-    <div class="hero-eyebrow">Formation 3 / 4</div>
-    <h1>React vs Next.js —<br><em>pourquoi le saut ?</em></h1>
-    <p class="hero-sub">React c'est une librairie d'UI. Next.js c'est un framework complet bâti sur React. Ce module explique ce que Next.js résout et pourquoi c'est le choix standard en prod.</p>
-    <div class="hero-meta">
-      <div class="meta-pill">Durée : <span>~2h</span></div>
-      <div class="meta-pill">Niveau : <span>Intermédiaire</span></div>
-      <div class="meta-pill">Stack : <span>Next.js 15</span></div>
-    </div>
-  </div>
-
-  <div class="content">
-
-    <!-- Ce que React ne résout pas -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">01</div>
-        <h2>Ce que React seul ne résout pas</h2>
-      </div>
-      <div class="section-body">
-        <p>React gère l'UI. Le reste — routing, performance, SEO, data fetching, déploiement — c'est à toi de l'assembler. Next.js fait tout ça par défaut.</p>
-
-        <div class="compare">
-          <div class="compare-col">
-            <div class="compare-col-header"><div class="dot" style="background:var(--muted)"></div>React seul (Vite/CRA)</div>
-            <div class="compare-col-body">
-              <div class="checklist" style="margin:0">
-                <div class="check-item" style="background:transparent;border-color:transparent;padding:8px 4px">
-                  <div class="check-icon" style="border-color:var(--muted)"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 3l4 4M7 3l-4 4" stroke="#7a7875" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-                  <div class="check-text" style="color:var(--muted)">Routing à configurer manuellement (react-router)</div>
-                </div>
-                <div class="check-item" style="background:transparent;border-color:transparent;padding:8px 4px">
-                  <div class="check-icon" style="border-color:var(--muted)"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 3l4 4M7 3l-4 4" stroke="#7a7875" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-                  <div class="check-text" style="color:var(--muted)">Tout le JS envoyé au client (mauvais pour SEO)</div>
-                </div>
-                <div class="check-item" style="background:transparent;border-color:transparent;padding:8px 4px">
-                  <div class="check-icon" style="border-color:var(--muted)"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 3l4 4M7 3l-4 4" stroke="#7a7875" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-                  <div class="check-text" style="color:var(--muted)">Pas d'API routes — besoin d'un backend séparé</div>
-                </div>
-                <div class="check-item" style="background:transparent;border-color:transparent;padding:8px 4px">
-                  <div class="check-icon" style="border-color:var(--muted)"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 3l4 4M7 3l-4 4" stroke="#7a7875" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
-                  <div class="check-text" style="color:var(--muted)">Images, fonts, cache : à configurer soi-même</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="compare-col" style="border-color:rgba(200,240,96,0.2)">
-            <div class="compare-col-header"><div class="dot dot-green"></div>Next.js 15</div>
-            <div class="compare-col-body">
-              <div class="checklist" style="margin:0">
-                <div class="check-item" style="background:transparent;border-color:transparent;padding:8px 4px">
-                  <div class="check-icon"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke="#c8f060" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                  <div class="check-text">Routing basé sur les fichiers — zero config</div>
-                </div>
-                <div class="check-item" style="background:transparent;border-color:transparent;padding:8px 4px">
-                  <div class="check-icon"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke="#c8f060" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                  <div class="check-text">Server Components — HTML rendu côté serveur, parfait pour le SEO</div>
-                </div>
-                <div class="check-item" style="background:transparent;border-color:transparent;padding:8px 4px">
-                  <div class="check-icon"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke="#c8f060" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                  <div class="check-text">API Routes et Server Actions intégrés</div>
-                </div>
-                <div class="check-item" style="background:transparent;border-color:transparent;padding:8px 4px">
-                  <div class="check-icon"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M2 5l2 2 4-4" stroke="#c8f060" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                  <div class="check-text">next/image, next/font, cache optimisé out-of-the-box</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- App Router & structure -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">02</div>
-        <h2>L'App Router — routing par fichiers</h2>
-      </div>
-      <div class="section-body">
-        <p>Dans Next.js 15, la structure de tes fichiers <strong>définit</strong> tes routes. Plus de configuration de router à écrire.</p>
-
-        <div class="concept">
-          <div class="concept-header">
-            <span class="concept-label" style="background:rgba(200,240,96,0.1);color:var(--accent1)">Structure</span>
-            <span class="concept-title">Arborescence app/ → routes générées</span>
-          </div>
-          <div class="concept-body">
-<pre><code><span class="c-accent">app/</span>
-├── <span class="c-yellow">layout.tsx</span>        <span class="c-gray">→ layout racine (navbar, footer)</span>
-├── <span class="c-yellow">page.tsx</span>          <span class="c-gray">→ /  (homepage)</span>
-├── <span class="c-yellow">loading.tsx</span>       <span class="c-gray">→ UI de chargement automatique</span>
-├── <span class="c-yellow">error.tsx</span>         <span class="c-gray">→ gestion d'erreur automatique</span>
-│
-├── <span class="c-accent">services/</span>
-│   ├── <span class="c-yellow">page.tsx</span>      <span class="c-gray">→ /services</span>
-│   └── <span class="c-accent">[slug]/</span>
-│       └── <span class="c-yellow">page.tsx</span>  <span class="c-gray">→ /services/approvisionnement</span>
-│                       <span class="c-gray">   /services/conseil-informatique</span>
-│
-├── <span class="c-accent">produits/</span>
-│   └── <span class="c-yellow">page.tsx</span>      <span class="c-gray">→ /produits</span>
-│
-└── <span class="c-accent">admin/</span>
-    ├── <span class="c-yellow">layout.tsx</span>    <span class="c-gray">→ layout admin (sidebar)</span>
-    └── <span class="c-yellow">page.tsx</span>      <span class="c-gray">→ /admin</span></code></pre>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Server vs Client Components -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">03</div>
-        <h2>Server vs Client Components</h2>
-      </div>
-      <div class="section-body">
-        <p>C'est le concept central de Next.js 15. Par défaut, tous tes composants sont des <strong>Server Components</strong> — ils s'exécutent sur le serveur, jamais dans le navigateur.</p>
-
-        <div class="concept">
-          <div class="concept-header">
-            <span class="concept-label" style="background:rgba(96,200,240,0.1);color:var(--accent2)">Règle</span>
-            <span class="concept-title">Quand utiliser "use client" ?</span>
-          </div>
-          <div class="concept-body">
-<pre><code><span class="c-gray">// Server Component (défaut) — données, SEO, pas d'état</span>
-<span class="c-gray">// app/services/page.tsx</span>
-<span class="c-purple">async function</span> <span class="c-accent">ServicesPage</span>() {
-  <span class="c-gray">// fetch direct côté serveur — pas besoin d'useEffect !</span>
-  <span class="c-purple">const</span> services = <span class="c-purple">await</span> <span class="c-accent">fetch</span>(<span class="c-green">'https://api.ma-eri.com/services'</span>)
-    .<span class="c-accent">then</span>(r =&gt; r.<span class="c-accent">json</span>())
-
-  <span class="c-purple">return</span> (
-    <span class="c-blue">&lt;main&gt;</span>
-      {services.<span class="c-accent">map</span>((s: <span class="c-accent">Service</span>) =&gt; <span class="c-blue">&lt;ServiceCard</span> <span class="c-yellow">key</span>=<span class="c-blue">{</span>s.id<span class="c-blue">}</span> {...s} <span class="c-blue">/&gt;</span>)}
-    <span class="c-blue">&lt;/main&gt;</span>
+  <span class="ck">return</span> (
+    &lt;button onClick={handleSubmit} disabled={statut === <span class="cs">'loading'</span>}&gt;
+      {statut === <span class="cs">'loading'</span> ? <span class="cs">'Envoi...'</span> : <span class="cs">'Commander'</span>}
+    &lt;/button&gt;
   )
 }
-
-<span class="c-gray">───────────────────────────────────────────────</span>
-
-<span class="c-gray">// Client Component — interactions, état, événements</span>
-<span class="c-green">'use client'</span>
-
-<span class="c-purple">import</span> { useState } <span class="c-purple">from</span> <span class="c-green">'react'</span>
-
-<span class="c-purple">export function</span> <span class="c-accent">AddToCartButton</span>({ articleId }: { articleId: <span class="c-yellow">string</span> }) {
-  <span class="c-purple">const</span> [added, setAdded] = <span class="c-accent">useState</span>(<span class="c-purple">false</span>)
-  <span class="c-purple">return</span> (
-    <span class="c-blue">&lt;button</span> <span class="c-yellow">onClick</span>=<span class="c-blue">{</span>() =&gt; <span class="c-accent">setAdded</span>(<span class="c-purple">true</span>)<span class="c-blue">}&gt;</span>
-      {added ? <span class="c-green">'Ajouté ✓'</span> : <span class="c-green">'Ajouter au panier'</span>}
-    <span class="c-blue">&lt;/button&gt;</span>
-  )
-}</code></pre>
-          </div>
-        </div>
-
-        <div class="insight">
-          <div class="insight-label">La règle d'or</div>
-          <p>Commence toujours en Server Component. Ajoute <code>'use client'</code> uniquement quand tu as besoin de <code>useState</code>, <code>useEffect</code>, d'event handlers (<code>onClick</code>, <code>onChange</code>) ou d'APIs browser (<code>localStorage</code>, <code>window</code>).</p>
-        </div>
-      </div>
+</code></pre>
     </div>
 
-    <!-- Exercice -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">04</div>
-        <h2>Exercice pratique</h2>
-      </div>
-      <div class="section-body">
-        <div class="exercise">
-          <div class="exercise-header">
-            <span class="ex-badge" style="background:rgba(96,200,240,0.1);color:var(--accent2)">Exercice</span>
-            <span class="ex-title">Migrer le catalogue vers Next.js</span>
-          </div>
-          <ol>
-            <li>Crée un projet Next.js 15 : <code>npx create-next-app@latest ma-eri-shop --typescript</code></li>
-            <li>Crée la route <strong>/produits</strong> — page Server Component qui lit les articles depuis un fichier JSON local</li>
-            <li>Crée la route <strong>/produits/[id]</strong> — page produit dynamique typée avec <code>params: Promise&lt;&#123; id: string &#125;&gt;</code></li>
-            <li>Le bouton "Ajouter au panier" est un Client Component — isole-le dans son propre fichier</li>
-            <li>Vérifie dans l'onglet Network du navigateur : la page arrive en HTML complet (SEO ✓)</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════
-     PAGE 4 — Next.js features
-══════════════════════════════════════════════ -->
-<div class="page" id="page-3">
-  <div class="hero">
-    <div class="hero-eyebrow">Formation 4 / 4</div>
-    <h1>Next.js — <em>features prod</em></h1>
-    <p class="hero-sub">Server Actions, API Routes, Middleware, metadata, Image/Font : les outils qui font tourner MA-ERI en production.</p>
-    <div class="hero-meta">
-      <div class="meta-pill">Durée : <span>~2h</span></div>
-      <div class="meta-pill">Niveau : <span>Avancé</span></div>
-      <div class="meta-pill">Stack : <span>Next.js 15 · Vercel</span></div>
+    <div class="callout tip">
+      <div class="callout-label">Pas de backend séparé</div>
+      <p>Pour les features MA-ERI sans backend, les Server Actions sont parfaites. Tu peux envoyer un email de confirmation, sauvegarder dans un fichier, ou appeler une API externe — tout ça sans jamais créer de serveur séparé.</p>
     </div>
   </div>
 
-  <div class="content">
+  <hr class="divider"/>
 
-    <!-- Server Actions -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">01</div>
-        <h2>Server Actions — mutations sans API</h2>
-      </div>
-      <div class="section-body">
-        <p>Les Server Actions permettent d'exécuter du code serveur <strong>directement depuis un formulaire ou un bouton</strong>, sans écrire une API Route séparée. C'est le moyen standard d'envoyer des données en Next.js 15.</p>
+  <!-- CH 2 — API Routes -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 2</div>
+    <h2>API Routes — créer un endpoint HTTP</h2>
 
-        <div class="concept">
-          <div class="concept-header">
-            <span class="concept-label" style="background:rgba(200,240,96,0.1);color:var(--accent1)">Cas concret</span>
-            <span class="concept-title">Formulaire de commande MA-ERI</span>
-          </div>
-          <div class="concept-body">
-<pre><code><span class="c-gray">// actions/commande.ts</span>
-<span class="c-green">'use server'</span>
+    <p>Parfois tu as besoin d'un vrai endpoint HTTP — pour un webhook, pour une app mobile, ou pour un service externe qui doit appeler ton site. C'est là qu'on utilise les <strong>API Routes</strong>.</p>
 
-<span class="c-purple">interface</span> <span class="c-accent">CommandeData</span> {
-  client: <span class="c-yellow">string</span>
-  email: <span class="c-yellow">string</span>
-  articles: { id: <span class="c-yellow">string</span>; quantite: <span class="c-yellow">number</span> }[]
-}
+    <p>Un fichier <code>route.ts</code> dans le dossier <code>app/api/</code> crée automatiquement un endpoint.</p>
 
-<span class="c-purple">export async function</span> <span class="c-accent">envoyerCommande</span>(data: <span class="c-accent">CommandeData</span>) {
-  <span class="c-gray">// Validation</span>
-  <span class="c-purple">if</span> (!data.email.<span class="c-accent">includes</span>(<span class="c-green">'@'</span>)) {
-    <span class="c-purple">return</span> { success: <span class="c-purple">false</span>, error: <span class="c-green">'Email invalide'</span> }
-  }
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">app/api/contact/route.ts</span></div>
+<pre><code><span class="ck">import</span> { NextRequest, NextResponse } <span class="ck">from</span> <span class="cs">'next/server'</span>
 
-  <span class="c-gray">// Envoi email via Resend (ou sauvegarde BDD)</span>
-  <span class="c-purple">await</span> <span class="c-accent">envoyerEmailConfirmation</span>(data)
+<span class="cc">// Répond aux requêtes POST sur /api/contact</span>
+<span class="ck">export async function</span> <span class="cf">POST</span>(req: <span class="cn">NextRequest</span>) {
+  <span class="ck">const</span> { nom, email, message } = <span class="ck">await</span> req.<span class="cf">json</span>()
 
-  <span class="c-gray">// Revalider le cache Next.js si nécessaire</span>
-  <span class="c-accent">revalidatePath</span>(<span class="c-green">'/admin/commandes'</span>)
-
-  <span class="c-purple">return</span> { success: <span class="c-purple">true</span> }
-}
-
-<span class="c-gray">───────────────────────────────────────────────</span>
-
-<span class="c-gray">// components/FormulaireCommande.tsx</span>
-<span class="c-green">'use client'</span>
-
-<span class="c-purple">import</span> { <span class="c-accent">envoyerCommande</span> } <span class="c-purple">from</span> <span class="c-green">'@/actions/commande'</span>
-
-<span class="c-purple">export function</span> <span class="c-accent">FormulaireCommande</span>() {
-  <span class="c-purple">const</span> [status, setStatus] = <span class="c-accent">useState</span>&lt;<span class="c-green">'idle'</span> | <span class="c-green">'loading'</span> | <span class="c-green">'success'</span>&gt;(<span class="c-green">'idle'</span>)
-
-  <span class="c-purple">async function</span> <span class="c-accent">handleSubmit</span>(e: <span class="c-accent">React.FormEvent</span>) {
-    e.<span class="c-accent">preventDefault</span>()
-    <span class="c-accent">setStatus</span>(<span class="c-green">'loading'</span>)
-    <span class="c-purple">const</span> result = <span class="c-purple">await</span> <span class="c-accent">envoyerCommande</span>({ <span class="c-gray">/* data */</span> })
-    <span class="c-purple">if</span> (result.success) <span class="c-accent">setStatus</span>(<span class="c-green">'success'</span>)
-  }
-
-  <span class="c-purple">return</span> <span class="c-blue">&lt;form</span> <span class="c-yellow">onSubmit</span>=<span class="c-blue">{</span>handleSubmit<span class="c-blue">}&gt;</span>...<span class="c-blue">&lt;/form&gt;</span>
-}</code></pre>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- API Routes -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">02</div>
-        <h2>API Routes — ton backend dans Next.js</h2>
-      </div>
-      <div class="section-body">
-        <p>Les API Routes créent des endpoints HTTP dans ton projet Next.js. Elles tournent côté serveur, jamais dans le navigateur — parfait pour les données sensibles.</p>
-
-        <div class="concept">
-          <div class="concept-header">
-            <span class="concept-label" style="background:rgba(240,96,200,0.1);color:var(--accent3)">Exemple</span>
-            <span class="concept-title">Route de contact MA-ERI</span>
-          </div>
-          <div class="concept-body">
-<pre><code><span class="c-gray">// app/api/contact/route.ts</span>
-<span class="c-purple">import</span> { NextRequest, NextResponse } <span class="c-purple">from</span> <span class="c-green">'next/server'</span>
-
-<span class="c-gray">// GET /api/contact</span>
-<span class="c-purple">export async function</span> <span class="c-accent">GET</span>() {
-  <span class="c-purple">return</span> <span class="c-accent">NextResponse</span>.<span class="c-accent">json</span>({ message: <span class="c-green">'API MA-ERI opérationnelle'</span> })
-}
-
-<span class="c-gray">// POST /api/contact</span>
-<span class="c-purple">export async function</span> <span class="c-accent">POST</span>(req: <span class="c-accent">NextRequest</span>) {
-  <span class="c-purple">const</span> body = <span class="c-purple">await</span> req.<span class="c-accent">json</span>()
-
-  <span class="c-gray">// Validation du body</span>
-  <span class="c-purple">const</span> { nom, email, message } = body
-  <span class="c-purple">if</span> (!nom || !email) {
-    <span class="c-purple">return</span> <span class="c-accent">NextResponse</span>.<span class="c-accent">json</span>(
-      { error: <span class="c-green">'Champs requis manquants'</span> },
-      { status: <span class="c-orange">400</span> }
+  <span class="ck">if</span> (!nom || !email) {
+    <span class="ck">return</span> <span class="cn">NextResponse</span>.<span class="cf">json</span>(
+      { erreur: <span class="cs">'Champs manquants'</span> },
+      { status: <span class="cn">400</span> }
     )
   }
 
-  <span class="c-gray">// Traitement — envoi email, sauvegarde...</span>
-  <span class="c-purple">await</span> <span class="c-accent">sauvegarderContact</span>({ nom, email, message })
+  <span class="cc">// Traitement...</span>
 
-  <span class="c-purple">return</span> <span class="c-accent">NextResponse</span>.<span class="c-accent">json</span>(
-    { success: <span class="c-purple">true</span> },
-    { status: <span class="c-orange">201</span> }
-  )
+  <span class="ck">return</span> <span class="cn">NextResponse</span>.<span class="cf">json</span>({ ok: <span class="ck">true</span> })
 }
-
-<span class="c-gray">// Accès : fetch('/api/contact', { method: 'POST', body: ... })</span></code></pre>
-          </div>
-        </div>
-
-        <div class="insight">
-          <div class="insight-label">Server Action vs API Route</div>
-          <p><strong>Server Action</strong> : mutations depuis l'UI React (formulaires, boutons). Typé de bout en bout, pas de fetch manuel. <strong>API Route</strong> : quand tu as besoin d'un endpoint HTTP public — pour un CMS externe, une app mobile, ou un webhook. Pour les features admin MA-ERI, les Server Actions suffisent dans 90% des cas.</p>
-        </div>
-      </div>
+</code></pre>
     </div>
 
-    <!-- Metadata & SEO -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">03</div>
-        <h2>Metadata, Image & Font</h2>
-      </div>
-      <div class="section-body">
-        <p>Next.js automatise ce qui était painful en React classique : le SEO, les images optimisées, les fonts sans layout shift.</p>
+    <div class="callout note">
+      <div class="callout-label">Server Action ou API Route ?</div>
+      <p>Tu appelles ça depuis ton UI React ? → <strong>Server Action</strong>. Un service externe doit t'appeler par HTTP ? → <strong>API Route</strong>. Dans le doute, Server Action — c'est plus simple.</p>
+    </div>
+  </div>
 
-        <div class="concept">
-          <div class="concept-header">
-            <span class="concept-label" style="background:rgba(240,160,96,0.1);color:var(--accent4)">SEO + Perf</span>
-            <span class="concept-title">Les 3 imports qui changent tout</span>
-          </div>
-          <div class="concept-body">
-<pre><code><span class="c-gray">// 1. Metadata — génère &lt;title&gt;, &lt;meta&gt;, OpenGraph automatiquement</span>
-<span class="c-purple">import</span> { <span class="c-accent">Metadata</span> } <span class="c-purple">from</span> <span class="c-green">'next'</span>
+  <hr class="divider"/>
 
-<span class="c-purple">export const</span> metadata: <span class="c-accent">Metadata</span> = {
-  title: <span class="c-green">'Catalogue — MA-ERI Consulting'</span>,
-  description: <span class="c-green">'Roulements, tuyaux, équipements industriels...'</span>,
-  openGraph: {
-    images: [<span class="c-green">'/og-catalogue.jpg'</span>],
-  },
-}
+  <!-- CH 3 — next/image -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 3</div>
+    <h2>Images et SEO — les automatismes de Next.js</h2>
 
-<span class="c-gray">───────────────────────────────────────────────</span>
+    <p>Deux choses que Next.js fait automatiquement et que tu aurais à configurer manuellement autrement.</p>
 
-<span class="c-gray">// 2. next/image — lazy load, WebP auto, pas de layout shift</span>
-<span class="c-purple">import</span> <span class="c-accent">Image</span> <span class="c-purple">from</span> <span class="c-green">'next/image'</span>
+    <p><strong>Les images</strong> — au lieu de <code>&lt;img&gt;</code>, utilise le composant <code>Image</code> de Next.js. Il compresse automatiquement, charge en lazy par défaut, et évite le décalage de page quand l'image charge.</p>
 
-<span class="c-blue">&lt;Image</span>
-  <span class="c-yellow">src</span>=<span class="c-green">"/produits/roulement-6205.jpg"</span>
-  <span class="c-yellow">alt</span>=<span class="c-green">"Roulement 6205"</span>
-  <span class="c-yellow">width</span>=<span class="c-blue">{</span><span class="c-orange">400</span><span class="c-blue">}</span>
-  <span class="c-yellow">height</span>=<span class="c-blue">{</span><span class="c-orange">300</span><span class="c-blue">}</span>
-  <span class="c-yellow">priority</span>   <span class="c-gray">// ← pour les images above-the-fold</span>
-<span class="c-blue">/&gt;</span>
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">ProduitCard.tsx</span></div>
+<pre><code><span class="ck">import</span> Image <span class="ck">from</span> <span class="cs">'next/image'</span>
 
-<span class="c-gray">───────────────────────────────────────────────</span>
-
-<span class="c-gray">// 3. next/font — font locale sans FOUT (Flash of Unstyled Text)</span>
-<span class="c-purple">import</span> { <span class="c-accent">DM_Sans</span>, <span class="c-accent">Fraunces</span> } <span class="c-purple">from</span> <span class="c-green">'next/font/google'</span>
-
-<span class="c-purple">const</span> sans = <span class="c-accent">DM_Sans</span>({ subsets: [<span class="c-green">'latin'</span>], variable: <span class="c-green">'--font-sans'</span> })
-<span class="c-purple">const</span> serif = <span class="c-accent">Fraunces</span>({ subsets: [<span class="c-green">'latin'</span>], variable: <span class="c-green">'--font-serif'</span> })</code></pre>
-          </div>
-        </div>
-      </div>
+&lt;Image
+  src=<span class="cs">"/produits/roulement.jpg"</span>
+  alt=<span class="cs">"Roulement à billes 6205"</span>
+  width={<span class="cn">400</span>}
+  height={<span class="cn">300</span>}
+/&gt;
+</code></pre>
     </div>
 
-    <!-- Middleware -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">04</div>
-        <h2>Middleware — intercepter les requêtes</h2>
-      </div>
-      <div class="section-body">
-        <p>Le middleware s'exécute <strong>avant</strong> chaque requête. C'est là où tu protèges les routes admin, rediriges selon la langue, ou vérifies une session.</p>
+    <p><strong>Le SEO</strong> — chaque page peut exporter un objet <code>metadata</code> qui génère automatiquement les balises <code>&lt;title&gt;</code>, <code>&lt;meta description&gt;</code>, et Open Graph pour les réseaux sociaux.</p>
 
-        <div class="concept">
-          <div class="concept-header">
-            <span class="concept-label" style="background:rgba(96,200,240,0.1);color:var(--accent2)">Protection</span>
-            <span class="concept-title">Protéger /admin sans backend</span>
-          </div>
-          <div class="concept-body">
-<pre><code><span class="c-gray">// middleware.ts (à la racine du projet)</span>
-<span class="c-purple">import</span> { NextRequest, NextResponse } <span class="c-purple">from</span> <span class="c-green">'next/server'</span>
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">app/produits/page.tsx</span></div>
+<pre><code><span class="ck">import</span> { <span class="cn">Metadata</span> } <span class="ck">from</span> <span class="cs">'next'</span>
 
-<span class="c-purple">export function</span> <span class="c-accent">middleware</span>(req: <span class="c-accent">NextRequest</span>) {
-  <span class="c-purple">const</span> isAdminRoute = req.nextUrl.pathname.<span class="c-accent">startsWith</span>(<span class="c-green">'/admin'</span>)
+<span class="cc">// Next.js génère automatiquement les balises HTML</span>
+<span class="ck">export const</span> metadata: <span class="cn">Metadata</span> = {
+  title: <span class="cs">'Catalogue — MA-ERI Consulting'</span>,
+  description: <span class="cs">'Roulements, tuyaux, équipements industriels.'</span>,
+}
 
-  <span class="c-purple">if</span> (isAdminRoute) {
-    <span class="c-purple">const</span> token = req.cookies.<span class="c-accent">get</span>(<span class="c-green">'session'</span>)
+<span class="ck">export default function</span> <span class="cf">ProduitsPage</span>() {
+  <span class="cc">// ...</span>
+}
+</code></pre>
+    </div>
+  </div>
 
-    <span class="c-purple">if</span> (!token) {
-      <span class="c-gray">// Redirection vers login si pas de session</span>
-      <span class="c-purple">return</span> <span class="c-accent">NextResponse</span>.<span class="c-accent">redirect</span>(
-        <span class="c-purple">new</span> <span class="c-accent">URL</span>(<span class="c-green">'/login'</span>, req.url)
+  <hr class="divider"/>
+
+  <!-- CH 4 — Middleware -->
+  <div class="chapter">
+    <div class="chapter-label">Chapitre 4</div>
+    <h2>Middleware — protéger des pages</h2>
+
+    <p>Le middleware est un fichier spécial qui s'exécute <strong>avant chaque requête</strong>. C'est là où tu protèges les pages qui ne doivent pas être accessibles à tout le monde — comme ton interface admin.</p>
+
+    <div class="code-block">
+      <div class="code-header"><span class="code-filename">middleware.ts (à la racine)</span></div>
+<pre><code><span class="ck">import</span> { NextRequest, NextResponse } <span class="ck">from</span> <span class="cs">'next/server'</span>
+
+<span class="ck">export function</span> <span class="cf">middleware</span>(req: <span class="cn">NextRequest</span>) {
+  <span class="ck">const</span> estAdmin = req.nextUrl.pathname.<span class="cf">startsWith</span>(<span class="cs">'/admin'</span>)
+
+  <span class="ck">if</span> (estAdmin) {
+    <span class="ck">const</span> session = req.cookies.<span class="cf">get</span>(<span class="cs">'session'</span>)
+
+    <span class="cc">// Pas de session → on redirige vers /login</span>
+    <span class="ck">if</span> (!session) {
+      <span class="ck">return</span> <span class="cn">NextResponse</span>.<span class="cf">redirect</span>(
+        <span class="ck">new</span> <span class="cf">URL</span>(<span class="cs">'/login'</span>, req.url)
       )
     }
   }
 
-  <span class="c-purple">return</span> <span class="c-accent">NextResponse</span>.<span class="c-accent">next</span>()
+  <span class="cc">// Tout va bien → on laisse passer</span>
+  <span class="ck">return</span> <span class="cn">NextResponse</span>.<span class="cf">next</span>()
 }
 
-<span class="c-gray">// Appliquer seulement sur certaines routes</span>
-<span class="c-purple">export const</span> config = {
-  matcher: [<span class="c-green">'/admin/:path*'</span>, <span class="c-green">'/api/:path*'</span>]
-}</code></pre>
-          </div>
-        </div>
-      </div>
+<span class="cc">// Sur quelles routes ce middleware s'applique</span>
+<span class="ck">export const</span> config = {
+  matcher: [<span class="cs">'/admin/:path*'</span>]
+}
+</code></pre>
     </div>
 
-    <!-- Exercice final -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-number">05</div>
-        <h2>Exercice final — feature complète</h2>
-      </div>
-      <div class="section-body">
-        <div class="exercise">
-          <div class="exercise-header">
-            <span class="ex-badge" style="background:rgba(200,240,96,0.1);color:var(--accent1)">Projet</span>
-            <span class="ex-title">Interface de commande MA-ERI de bout en bout</span>
-          </div>
-          <ol>
-            <li>Page <strong>/produits</strong> : Server Component qui liste les articles depuis un fichier JSON, avec <code>next/image</code> pour les photos et <code>metadata</code> pour le SEO</li>
-            <li>Page <strong>/produits/[id]</strong> : fiche produit dynamique avec bouton "Ajouter" (Client Component)</li>
-            <li>Page <strong>/panier</strong> : récapitulatif avec formulaire de commande</li>
-            <li>Server Action <strong>envoyerCommande</strong> : valide les données, envoie un email via Resend (gratuit), retourne success/error</li>
-            <li>Page <strong>/admin</strong> protégée par middleware : liste des commandes reçues</li>
-            <li>Déploie sur <strong>Vercel</strong> avec <code>vercel deploy</code></li>
-          </ol>
-        </div>
-
-        <div class="resources">
-          <a class="resource-card" href="https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations" target="_blank">
-            <div class="resource-title">Next.js — Server Actions</div>
-            <div class="resource-url">nextjs.org/docs</div>
-          </a>
-          <a class="resource-card" href="https://resend.com/docs/introduction" target="_blank">
-            <div class="resource-title">Resend — Envoi d'emails</div>
-            <div class="resource-url">resend.com</div>
-          </a>
-          <a class="resource-card" href="https://ui.shadcn.com/docs/components/radix/data-table" target="_blank">
-            <div class="resource-title">shadcn/ui — Data Table</div>
-            <div class="resource-url">ui.shadcn.com</div>
-          </a>
-          <a class="resource-card" href="https://21st.dev/community/components" target="_blank">
-            <div class="resource-title">21st.dev — UI components</div>
-            <div class="resource-url">21st.dev</div>
-          </a>
-        </div>
-
-        <div class="insight" style="margin-top:32px">
-          <div class="insight-label">Fin du mois 1</div>
-          <p>À ce stade, Mihago a les bases pour travailler sur les 3 features prod : interface admin (Sanity + Next.js), catalogue e-commerce, et module de missions. Chaque feature est une vraie PR sur le repo MA-ERI.</p>
-        </div>
-      </div>
+    <div class="callout note">
+      <div class="callout-label">Pour l'interface admin MA-ERI</div>
+      <p>La protection par middleware sera la première chose à mettre en place quand tu commenceras la feature admin. Personne ne doit pouvoir accéder à <code>/admin</code> sans s'identifier.</p>
     </div>
-
   </div>
+
+  <hr class="divider"/>
+
+  <div class="exercise">
+    <div class="exercise-tag">Exercice final — fin du mois 1</div>
+    <h3>Formulaire de commande de bout en bout</h3>
+    <ul class="exercise-steps">
+      <li><div class="ex-num">1</div><div>Dans ton projet Next.js, crée la page <strong>/panier</strong> avec un récapitulatif des produits ajoutés (utilise le state du composant).</div></li>
+      <li><div class="ex-num">2</div><div>Ajoute un formulaire avec nom, email, et message. Utilise le composant <strong>Input</strong> de shadcn/ui.</div></li>
+      <li><div class="ex-num">3</div><div>Crée une Server Action <strong>passerCommande</strong> qui valide les données et retourne un succès ou une erreur.</div></li>
+      <li><div class="ex-num">4</div><div>Affiche un message de confirmation après l'envoi. Gère l'état "en cours d'envoi" avec un spinner — composant <strong>Spinner</strong> de shadcn/ui.</div></li>
+      <li><div class="ex-num">5</div><div>Déploie sur <strong>Vercel</strong> avec <code>vercel deploy</code>. Envoie le lien.</div></li>
+    </ul>
+    <div class="ex-links">
+      <a class="ex-link" href="https://ui.shadcn.com/docs/components/radix/input" target="_blank">→ shadcn/ui Input</a>
+      <a class="ex-link" href="https://ui.shadcn.com/docs/components/radix/spinner" target="_blank">→ shadcn/ui Spinner</a>
+      <a class="ex-link" href="https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations" target="_blank">→ Next.js Server Actions</a>
+      <a class="ex-link" href="https://21st.dev/community/components" target="_blank">→ 21st.dev components</a>
+    </div>
+  </div>
+
+</div>
 </div>
 
 <script>
-function showPage(index) {
-  document.querySelectorAll('.page').forEach((p, i) => {
-    p.classList.toggle('active', i === index)
-  })
-  document.querySelectorAll('.nav-tab').forEach((t, i) => {
-    t.classList.toggle('active', i === index)
-  })
+function go(i) {
+  document.querySelectorAll('.page').forEach((p, j) => p.classList.toggle('active', j === i))
+  document.querySelectorAll('.nav-tab').forEach((t, j) => t.classList.toggle('active', j === i))
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 </script>
